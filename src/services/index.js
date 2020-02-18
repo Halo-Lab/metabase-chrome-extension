@@ -4,9 +4,9 @@ function getData() {
     redirect: 'follow'
   };
   
-  fetch("api.coincap.io/v2/assets", requestOptions)
-    .then(response => response.text())
-    .then(result => console.log(result))
+  fetch("https://api.coincap.io/v2/assets?limit=1", requestOptions)
+    .then(response => response.json())
+    .then(result => console.log(result.data))
     .catch(error => console.log('error', error));
 }
 
