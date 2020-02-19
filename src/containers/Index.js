@@ -1,7 +1,7 @@
 import React from 'react';
 
 import Header from '../components/Header';
-import CoinContainer from '../components/CoinContainer';
+import CoinContainer from './CoinContainer';
 
 import '../style/index.scss';
 
