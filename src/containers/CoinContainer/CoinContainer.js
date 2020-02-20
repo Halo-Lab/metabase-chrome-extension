@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-
 import classes from './CoinContainer.module.scss';
 import CoinCard from '../../components/CoinCard';
 
@@ -8,7 +7,7 @@ const CoinContainer = () => {
   const [data, setData] = useState([]);
 
   useEffect(()=>{
-    fetch("https://api.coincap.io/v2/assets?limit=5")
+    fetch("https://api.coincap.io/v2/assets?limit=10")
     .then(response => response.json())
     .then(result => setData(result.data))
     .catch(error => console.log('error', error));  
@@ -16,6 +15,9 @@ const CoinContainer = () => {
 
   return (
     <div className={classes.CoinContainer}>
+      <div>
+      
+      </div>
       {data.map(coin => 
         <CoinCard value={coin} key={coin.id} />
       )}

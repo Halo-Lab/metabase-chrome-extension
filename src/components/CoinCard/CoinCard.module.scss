@@ -1,9 +1,12 @@
 .CoinCard {
+  display:flex;
+  align-items: center;
+  flex-direction: column;
   padding: 0 10px;
-
+  cursor: pointer;
   & + .CoinCard {
-    margin-top: 20px;
-    padding-top: 20px;
+    margin-top: 10px;
+    padding-top: 10px;
     border-top: 1px solid rgba(34, 36, 38, 0.1);
   }
 }
@@ -11,9 +14,11 @@
 .Row {
   display: flex;
   align-items: center;
-  + .Row {
-    margin-top: 15px;
-  }
+  min-height: 50px;
+  width: 100%;
+    // + .Row {
+    //   margin-top: 15px;
+    // }
 }
 
 .Image {
