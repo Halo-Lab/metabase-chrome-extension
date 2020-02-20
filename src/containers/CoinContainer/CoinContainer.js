@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import classes from './CoinContainer.module.scss';
 import CoinCard from '../../components/CoinCard';
 
-import Autocomplete from '../../components/Autocomplite';
+import Autocomplete from '../../components/Autocomplite/Autocoplete';
 
 
 const CoinContainer = () => {
@@ -17,11 +17,16 @@ const CoinContainer = () => {
 
   const coinNameList = data.map(coin => coin['id']);
 
+  const handleClick = () => {
+    
+  }
+
   return (
     <div className={classes.CoinContainer}>
       <div>
       <Autocomplete
         suggestions={coinNameList}
+        handleClick
       />
       </div>
       {data.map(coin => 
