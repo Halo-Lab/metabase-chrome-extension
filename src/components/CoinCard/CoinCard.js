@@ -3,21 +3,20 @@ import classes from './CoinCard.module.scss';
 
 import { cutValueAfterPoint } from '../../utils';
 
-const CoinCard = ({value}) => {
-  const {id,symbol, name, priceUsd, changePercent24Hr, marketCapUsd } = value;
+const CoinCard = ({ value }) => {
+  const { id, symbol, name, priceUsd, changePercent24Hr } = value;
   const [price, setPrice] = useState(cutValueAfterPoint(priceUsd));
-  const [data, setData] = useState();
 
-  useEffect(()=>{
+  useEffect(() => {
     const pricesWs = new WebSocket(`wss://ws.coincap.io/prices?assets=${id}`)
     pricesWs.onmessage = function (msg) {
-        const dataFromServer = cutValueAfterPoint(JSON.parse(msg.data)[id]);
-        setPrice(dataFromServer);
+      const dataFromServer = cutValueAfterPoint(JSON.parse(msg.data)[id]);
+      setPrice(dataFromServer);
     }
-    return ()=>{
+    return () => {
       pricesWs.close()
     }
-  },[price,id])
+  }, [])
 
   const handleClick = () => {
     // fetch(`https://api.coincap.io/v2/assets/${id}/history?interval=m15`)
