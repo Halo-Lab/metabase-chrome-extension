@@ -1,11 +1,14 @@
 import React, { useState, useEffect } from 'react';
+import Chart from '../Chart/Chart';
 import classes from './CoinCard.module.scss';
 
 import { cutValueAfterPoint } from '../../utils';
 
-const CoinCard = ({ value }) => {
+const CoinCard = ({ value, addFavorits }) => {
   const { id, symbol, name, priceUsd, changePercent24Hr } = value;
   const [price, setPrice] = useState(cutValueAfterPoint(priceUsd));
+  const [data, setData] = useState([]);
+  const [show, setShow] = useState(false);
 
   useEffect(() => {
     const pricesWs = new WebSocket(`wss://ws.coincap.io/prices?assets=${id}`)
@@ -16,14 +19,24 @@ const CoinCard = ({ value }) => {
     return () => {
       pricesWs.close()
     }
-  }, [])
+  }, [id])
 
   const handleClick = () => {
-    // fetch(`https://api.coincap.io/v2/assets/${id}/history?interval=m15`)
-    // .then(response => response.json())
-    // .then(result => console.log(result.data))
-    // .catch(error => console.log('error', error));
+    if (!show) {
+      fetch(`https://api.coincap.io/v2/assets/${id}/history?interval=m5`)
+        .then(response => response.json())
+        .then(result => {
+          setData(result.data);
+          setShow(true);
+        })
+        .catch(error => console.log('error', error));
+    } else {
+      setShow(!show);
+    }
   }
+
+
+
 
   const imageSrc = `https://static.coincap.io/assets/icons/${symbol.toLowerCase()}@2x.png`;
 
@@ -32,6 +45,7 @@ const CoinCard = ({ value }) => {
   return (
     <div className={classes.CoinCard} onClick={handleClick}>
       <div className={classes.Row}>
+        <input type='checkbox' onClick={() => addFavorits(id)} />
         <img className={classes.Image} src={imageSrc} alt="icon" draggable="false" />
         <div className={classes.Name}><b>{symbol}</b> | <span>{name}</span></div>
         <div className={classes.Persent}>
@@ -39,6 +53,9 @@ const CoinCard = ({ value }) => {
           <span className={percentClass}>{percent}%</span>
         </div>
         <span className={classes.Price}>${price}</span>
+      </div>
+      <div>
+        {show ? <Chart data={data} coin={id} /> : null}
       </div>
     </div>
   )
