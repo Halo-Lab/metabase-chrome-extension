@@ -24,7 +24,7 @@ const CoinCard = ({ value, addFavorits }) => {
 
   const handleClick = () => {
     if (!show) {
-      CoinService.history(id,'m5', result => {
+      CoinService.history(id,'m15', result => {
         setData(result.data);
         setShow(true);
       })

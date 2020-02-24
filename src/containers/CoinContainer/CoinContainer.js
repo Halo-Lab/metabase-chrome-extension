@@ -21,16 +21,15 @@ const CoinContainer = () => {
     CoinService.findCoin(name, result => setData([result.data]))
   }
   const sortFavorits = () => {
-    // CoinService.findCoins(names,result => setData(result['data']));
+    const names = favorits.join(',');
+    console.log(names);
+    CoinService.findCoins(names,result => setData(result['data']));
     
   }
 
   const addToFavorits = id => {
     if (favorits.includes(id)) {
-      const newFavorits = favorits.filter(item => item !== id)
-      console.log(newFavorits);
-      setFavorits(newFavorits);
-      sortFavorits();
+      setFavorits(favorits.filter(item => item !== id));
     } else {
       favorits.push(id);
     }
