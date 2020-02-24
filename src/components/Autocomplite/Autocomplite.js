@@ -19,8 +19,8 @@ function Autocomplete({ handleClick }) {
     const userInput = e.currentTarget.value;
 
     const filteredSuggestions = COIN_NAMES.filter(
-      (suggestion, index) =>
-        suggestion.toLowerCase().slice(0, index + 1).indexOf(userInput.toLowerCase()) > -1
+      suggestion =>
+        suggestion.toLowerCase().slice(0, userInput.length).indexOf(userInput.toLowerCase()) > -1
     );
 
     setState({
