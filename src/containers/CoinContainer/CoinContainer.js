@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import classes from './CoinContainer.module.scss';
 import CoinCard from '../../components/CoinCard';
+import CoinService from '../../services/index';
 
 import Autocomplete from '../../components/Autocomplite/Autocomplite';
 
@@ -9,38 +10,30 @@ const CoinContainer = () => {
   const [data, setData] = useState([]);
   const [favorits, setFavorits] = useState([]);
   useEffect(() => {
-    fetchAllCoins();
+    fetchCoins();
   }, [])
 
-  const fetchAllCoins = () => {
-    fetch("https://api.coincap.io/v2/assets?limit=10")
-      .then(response => response.json())
-      .then(result => setData(result.data))
-      .catch(error => console.log('error', error));
+  const fetchCoins = () => {
+    CoinService.limit(0,5,result => setData(result.data));
   }
 
   const handleClick = name => {
-    fetch(`https://api.coincap.io/v2/assets/${name}`)
-      .then(response => response.json())
-      .then(result => setData([result.data]))
-      .catch(error => console.log('error', error));
+    CoinService.findCoin(name, result => setData([result.data]))
   }
   const sortFavorits = () => {
-    fetch("https://api.coincap.io/v2/assets?limit=10")
-      .then(response => response.json())
-      .then(result => {
-        const res = result['data'].filter(f => favorits.includes(f.id));
-        setData(res)
-      })
-      .catch(error => console.log('error', error));
+    // CoinService.findCoins(names,result => setData(result['data']));
+    
   }
 
   const addToFavorits = id => {
     if (favorits.includes(id)) {
-      setFavorits(favorits.filter(item => item !== id));
-      return;
+      const newFavorits = favorits.filter(item => item !== id)
+      console.log(newFavorits);
+      setFavorits(newFavorits);
+      sortFavorits();
+    } else {
+      favorits.push(id);
     }
-    return setFavorits([...favorits, id]);
   }
 
   return (
@@ -49,7 +42,7 @@ const CoinContainer = () => {
         <Autocomplete
           handleClick={handleClick}
         />
-        <button onClick={fetchAllCoins}>All coins</button>
+        <button onClick={fetchCoins}>All coins</button>
         <button onClick={sortFavorits}>Favorits</button>
       </div>
       {data.map(coin =>

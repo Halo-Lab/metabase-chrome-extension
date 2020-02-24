@@ -3,20 +3,20 @@ import Chart from 'chart.js';
 import * as moment from 'moment';
 
 
-const ChartCanvas = ({ data }) => {
+const ChartCanvas = ({ data, rise }) => {
   const canvas = useRef();
   const ctx = useRef();
   useEffect(() => {
     ctx.current = canvas.current.getContext('2d');
     ctx.current.canvas.width = 475;
-    ctx.current.canvas.height = 300;
+    ctx.current.canvas.height = 250;
     const cfg = {
       data: {
         datasets: [{
           label: '',
-          backgroundColor: chartColors.green,
-          borderColor: chartColors.green,
-          data: data.filter(item => Date.now() - 43200000 < item.time).map(item => {
+          backgroundColor: rise ? chartColors.lightGreen : chartColors.lightRed,
+          borderColor: rise ? chartColors.green : chartColors.red,
+          data: data.filter(item => Date.now() - DAY_MILLISECONDS < item.time).map(item => {
             return {
               't': item.time,
               'y': item.priceUsd
@@ -31,6 +31,9 @@ const ChartCanvas = ({ data }) => {
       options: {
         animation: {
           duration: 0
+        },
+        legend: {
+          display: false
         },
         scales: {
           xAxes: [{
@@ -77,7 +80,7 @@ const ChartCanvas = ({ data }) => {
           }],
           yAxes: [{
             ticks: {
-              padding: -25
+              padding: 0
             },
             gridLines: {
               drawBorder: false
@@ -92,7 +95,6 @@ const ChartCanvas = ({ data }) => {
           mode: 'index',
           custom: function (tooltip) {
             if (!tooltip) return;
-            // disable displaying the color box;
             tooltip.displayColors = false;
           },
           callbacks: {
@@ -112,7 +114,11 @@ const ChartCanvas = ({ data }) => {
 }
 
 const chartColors = {
-  green: 'rgb(75, 192, 192)',
+  green: 'rgb(183, 220, 175)',
+  lightGreen: 'rgba(183, 220, 175, 0.5)',
+  red: 'rgb(244, 84, 65)',
+  lightRed: 'rgba(244, 84, 65, 0.3)'
 };
+const DAY_MILLISECONDS = 86400000;
 
 export default ChartCanvas;

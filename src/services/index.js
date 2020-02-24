@@ -1,13 +1,27 @@
-function getData() {
-  var requestOptions = {
-    method: 'GET',
-    redirect: 'follow'
-  };
-  
-  fetch("https://api.coincap.io/v2/assets?limit=1", requestOptions)
+const  CoinService = {
+  baseUrl: 'https://api.coincap.io/v2/',
+  fetch(url, callback){
+    return fetch(url)
     .then(response => response.json())
-    .then(result => console.log(result.data))
+    .then(callback)
     .catch(error => console.log('error', error));
+  },
+  findCoin(name, callback) {
+    const url = `${this.baseUrl}assets/${name}`;
+    return this.fetch(url, callback);
+  },
+  findCoins(names, callback) {
+    const url = `${this.baseUrl}assets?ids=${names}`;
+    return this.fetch(url, callback);
+  },
+  limit(offset=0, limit , callback) {
+    const url = `${this.baseUrl}assets?offset=${offset}&limit=${limit}`;
+    return this.fetch(url, callback);
+  },
+  history(name, period, callback) {
+    const url = `${this.baseUrl}assets/${name}/history?interval=${period}`;
+    return this.fetch(url, callback);
+  }
 }
 
-export default getData;
+export default CoinService;

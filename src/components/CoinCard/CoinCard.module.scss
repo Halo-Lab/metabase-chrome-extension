@@ -1,12 +1,13 @@
 .CoinCard {
+  position: relative;
   display:flex;
   align-items: center;
   flex-direction: column;
-  padding: 0 10px;
+  padding-top: 10px;
+  padding-left: 20px;
   cursor: pointer;
   & + .CoinCard {
     margin-top: 10px;
-    padding-top: 10px;
     border-top: 1px solid rgba(34, 36, 38, 0.1);
   }
 }
@@ -41,12 +42,17 @@
   // margin-left: auto;
 }
 
-
-
 .green {
   color: rgb(57, 172, 57);
 }
 
 .red {
   color: rgb(224, 58, 58);
+}
+
+.Checkbox {
+  position: absolute;
+  z-index: 5;
+  left: 0;
+  top: 26px;
 }

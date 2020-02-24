@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import Chart from '../Chart/Chart';
 import classes from './CoinCard.module.scss';
 
+import CoinService from '../../services/index';
 import { cutValueAfterPoint } from '../../utils';
 
 const CoinCard = ({ value, addFavorits }) => {
@@ -23,29 +24,23 @@ const CoinCard = ({ value, addFavorits }) => {
 
   const handleClick = () => {
     if (!show) {
-      fetch(`https://api.coincap.io/v2/assets/${id}/history?interval=m5`)
-        .then(response => response.json())
-        .then(result => {
-          setData(result.data);
-          setShow(true);
-        })
-        .catch(error => console.log('error', error));
+      CoinService.history(id,'m5', result => {
+        setData(result.data);
+        setShow(true);
+      })
     } else {
       setShow(!show);
     }
   }
-
-
-
 
   const imageSrc = `https://static.coincap.io/assets/icons/${symbol.toLowerCase()}@2x.png`;
 
   const percent = cutValueAfterPoint(changePercent24Hr, 'percent');
   const percentClass = changePercent24Hr > 0 ? classes.green : classes.red;
   return (
-    <div className={classes.CoinCard} onClick={handleClick}>
-      <div className={classes.Row}>
-        <input type='checkbox' onClick={() => addFavorits(id)} />
+    <div className={classes.CoinCard}>
+    <input className={classes.Checkbox} type='checkbox' onClick={() => addFavorits(id)} />
+      <div className={classes.Row} onClick={handleClick}>
         <img className={classes.Image} src={imageSrc} alt="icon" draggable="false" />
         <div className={classes.Name}><b>{symbol}</b> | <span>{name}</span></div>
         <div className={classes.Persent}>
@@ -55,7 +50,7 @@ const CoinCard = ({ value, addFavorits }) => {
         <span className={classes.Price}>${price}</span>
       </div>
       <div>
-        {show ? <Chart data={data} coin={id} /> : null}
+        {show ? <Chart data={data}  rise={changePercent24Hr > 0}/> : null}
       </div>
     </div>
   )
