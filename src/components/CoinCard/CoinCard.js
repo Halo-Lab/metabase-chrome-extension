@@ -1,15 +1,21 @@
 import React, { useState, useEffect } from 'react';
 import Chart from '../Chart/Chart';
+import Checkbox from '../Checkbox/Checkbox';
 import classes from './CoinCard.module.scss';
 
 import CoinService from '../../services/index';
 import { cutValueAfterPoint } from '../../utils';
 
+const initialChartState = {
+  isOpen: false,
+  data: [],
+  period: 'm15'
+}
+
 const CoinCard = ({ value, addFavorits }) => {
   const { id, symbol, name, priceUsd, changePercent24Hr } = value;
   const [price, setPrice] = useState(cutValueAfterPoint(priceUsd));
-  const [data, setData] = useState([]);
-  const [show, setShow] = useState(false);
+  const [chartState, setChartState] = useState(initialChartState);
 
   useEffect(() => {
     const pricesWs = new WebSocket(`wss://ws.coincap.io/prices?assets=${id}`)
@@ -23,13 +29,13 @@ const CoinCard = ({ value, addFavorits }) => {
   }, [id])
 
   const handleClick = () => {
-    if (!show) {
-      CoinService.history(id,'m15', result => {
-        setData(result.data);
-        setShow(true);
+    if (!chartState.isOpen) {
+      CoinService.history(id, chartState.period , result => {
+        setChartState({...chartState,data:result.data ,isOpen: true})
       })
     } else {
-      setShow(!show);
+      console.log('aa')
+      setChartState({...chartState, isOpen: false})
     }
   }
 
@@ -39,7 +45,7 @@ const CoinCard = ({ value, addFavorits }) => {
   const percentClass = changePercent24Hr > 0 ? classes.green : classes.red;
   return (
     <div className={classes.CoinCard}>
-    <input className={classes.Checkbox} type='checkbox' onClick={() => addFavorits(id)} />
+      <Checkbox click={()=>addFavorits(id)} className={classes.Checkbox} coin={id}/>
       <div className={classes.Row} onClick={handleClick}>
         <img className={classes.Image} src={imageSrc} alt="icon" draggable="false" />
         <div className={classes.Name}><b>{symbol}</b> | <span>{name}</span></div>
@@ -50,8 +56,19 @@ const CoinCard = ({ value, addFavorits }) => {
         <span className={classes.Price}>${price}</span>
       </div>
       <div>
-        {show ? <Chart data={data}  rise={changePercent24Hr > 0}/> : null}
+        {chartState.isOpen ? <Chart data={chartState.data}  rise={changePercent24Hr > 0}/> : null}
       </div>
+      {
+        chartState.isOpen ? 
+        <div> 
+          <button>12H</button>
+          <button>1D</button>
+          <button>1W</button>
+          <button>1M</button>
+          <button>1Y</button>
+        </div> 
+        : null
+      }
     </div>
   )
 }

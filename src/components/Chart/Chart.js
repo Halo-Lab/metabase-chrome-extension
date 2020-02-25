@@ -8,7 +8,7 @@ const ChartCanvas = ({ data, rise }) => {
   const ctx = useRef();
   useEffect(() => {
     ctx.current = canvas.current.getContext('2d');
-    ctx.current.canvas.width = 475;
+    ctx.current.canvas.width = 435;
     ctx.current.canvas.height = 250;
     const cfg = {
       data: {
@@ -16,7 +16,7 @@ const ChartCanvas = ({ data, rise }) => {
           label: '',
           backgroundColor: rise ? chartColors.lightGreen : chartColors.lightRed,
           borderColor: rise ? chartColors.green : chartColors.red,
-          data: data.filter(item => Date.now() - DAY_MILLISECONDS < item.time).map(item => {
+          data: data.filter(item => Date.now() - DAY_MILLISECONDS/2 < item.time).map(item => {
             return {
               't': item.time,
               'y': item.priceUsd

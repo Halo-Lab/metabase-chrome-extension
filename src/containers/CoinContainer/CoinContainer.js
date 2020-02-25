@@ -22,7 +22,7 @@ const CoinContainer = () => {
   }
   const sortFavorits = () => {
     const names = favorits.join(',');
-    console.log(names);
+    // console.log(names);
     CoinService.findCoins(names,result => setData(result['data']));
     
   }
