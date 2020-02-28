@@ -1,10 +1,6 @@
 .CoinContainer {
   display: flex;
   flex-direction: column;
-  padding: 0 20px;
-}
-
-.Autocomplete {
-  position: absolute;
-  width:100%;
+  padding: 30px 20px 0;
+  position: relative;
 }

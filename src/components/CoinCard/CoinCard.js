@@ -4,12 +4,12 @@ import Checkbox from '../Checkbox/Checkbox';
 import classes from './CoinCard.module.scss';
 
 import CoinService from '../../services/index';
-import { cutValueAfterPoint } from '../../utils';
+import { cutValueAfterPoint, chartPeriod } from '../../utils';
 
 const initialChartState = {
   isOpen: false,
   data: [],
-  period: 'm15'
+  period: 'd1'
 }
 
 const CoinCard = ({ value, addFavorits }) => {
@@ -34,7 +34,6 @@ const CoinCard = ({ value, addFavorits }) => {
         setChartState({...chartState,data:result.data ,isOpen: true})
       })
     } else {
-      console.log('aa')
       setChartState({...chartState, isOpen: false})
     }
   }

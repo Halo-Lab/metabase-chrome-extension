@@ -14,9 +14,9 @@ const ChartCanvas = ({ data, rise }) => {
       data: {
         datasets: [{
           label: '',
-          backgroundColor: rise ? chartColors.lightGreen : chartColors.lightRed,
-          borderColor: rise ? chartColors.green : chartColors.red,
-          data: data.filter(item => Date.now() - DAY_MILLISECONDS/2 < item.time).map(item => {
+          backgroundColor: rise ? CHART_COLORS.lightGreen : CHART_COLORS.lightRed,
+          borderColor: rise ? CHART_COLORS.green : CHART_COLORS.red,
+          data: data.filter(item => Date.now() - (DAY_MILLISECONDS*365) < item.time).map(item => {
             return {
               't': item.time,
               'y': item.priceUsd
@@ -52,9 +52,9 @@ const ChartCanvas = ({ data, rise }) => {
               sampleSize: 100
             },
             afterBuildTicks: function (scale, ticks) {
-              var majorUnit = scale._majorUnit;
-              var firstTick = ticks[0];
-              var i, ilen, val, tick, currMajor, lastMajor;
+              let majorUnit = scale._majorUnit;
+              let firstTick = ticks[0];
+              let i, ilen, val, tick, currMajor, lastMajor;
 
               val = moment(ticks[0].value);
               if ((majorUnit === 'minute' && val.second() === 0)
@@ -113,7 +113,7 @@ const ChartCanvas = ({ data, rise }) => {
   )
 }
 
-const chartColors = {
+const CHART_COLORS = {
   green: 'rgb(183, 220, 175)',
   lightGreen: 'rgba(183, 220, 175, 0.5)',
   red: 'rgb(244, 84, 65)',

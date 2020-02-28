@@ -4,12 +4,11 @@ body {
   padding: 0;
   height: 100%;
   width: 100%;
-  overflow: hidden;
+  overflow-x: hidden;
 }
 
 body {
-  font-family: 'Roboto', Arial, sans-serif;
-  overflow: hidden;
+  font-family: 'Roboto', Arial, sans-serif; 
   width: 475px;
   background: rgba(236, 239, 241, 0.26);
 }
