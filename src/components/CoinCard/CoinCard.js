@@ -9,7 +9,7 @@ import { cutValueAfterPoint, chartPeriod } from '../../utils';
 const initialChartState = {
   isOpen: false,
   data: [],
-  period: 'd1'
+  period: '12H'
 }
 
 const CoinCard = ({ value, addFavorits }) => {
@@ -28,14 +28,22 @@ const CoinCard = ({ value, addFavorits }) => {
     }
   }, [id])
 
-  const handleClick = () => {
+  const fetchPriceHistory = () => {
     if (!chartState.isOpen) {
-      CoinService.history(id, chartState.period , result => {
-        setChartState({...chartState,data:result.data ,isOpen: true})
+      const timeInterval = chartPeriod(chartState.period).history
+      CoinService.history(id, timeInterval, result => {
+        setChartState({ ...chartState, data: result.data, isOpen: true })
       })
     } else {
-      setChartState({...chartState, isOpen: false})
+      setChartState({ ...chartState, isOpen: false })
     }
+  }
+
+  const changePeriod = period => {
+    const timeInterval = chartPeriod(chartState.period).history
+    CoinService.history(id, timeInterval, result => {
+      setChartState({ ...chartState, data: result.data, period })
+    })
   }
 
   const imageSrc = `https://static.coincap.io/assets/icons/${symbol.toLowerCase()}@2x.png`;
@@ -44,8 +52,8 @@ const CoinCard = ({ value, addFavorits }) => {
   const percentClass = changePercent24Hr > 0 ? classes.green : classes.red;
   return (
     <div className={classes.CoinCard}>
-      <Checkbox click={()=>addFavorits(id)} className={classes.Checkbox} coin={id}/>
-      <div className={classes.Row} onClick={handleClick}>
+      <Checkbox click={() => addFavorits(id)} className={classes.Checkbox} coin={id} />
+      <div className={classes.Row} onClick={fetchPriceHistory}>
         <img className={classes.Image} src={imageSrc} alt="icon" draggable="false" />
         <div className={classes.Name}><b>{symbol}</b> | <span>{name}</span></div>
         <div className={classes.Persent}>
@@ -55,21 +63,25 @@ const CoinCard = ({ value, addFavorits }) => {
         <span className={classes.Price}>${price}</span>
       </div>
       <div>
-        {chartState.isOpen ? <Chart data={chartState.data}  rise={changePercent24Hr > 0}/> : null}
+        {chartState.isOpen ?
+          <Chart data={chartState.data}
+            rise={changePercent24Hr > 0}
+            timeInterval={chartPeriod(chartState.period).time} />
+          : null}
       </div>
       {
-        chartState.isOpen ? 
-        <div> 
-          <button>12H</button>
-          <button>1D</button>
-          <button>1W</button>
-          <button>1M</button>
-          <button>1Y</button>
-        </div> 
-        : null
+        chartState.isOpen ?
+          <div>
+            {TIME_PERIODS.map(time => {
+              return (<button onClick={() => changePeriod(time)} key={time}>{time}</button>)
+            })}
+          </div>
+          : null
       }
     </div>
   )
 }
+
+const TIME_PERIODS = ['12h', '1D', '1W', '1M', '1Y'];
 
 export default CoinCard;

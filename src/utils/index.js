@@ -12,11 +12,11 @@ export const cutValueAfterPoint = (price, type = 'price') => {
 const DAY_MILLISECONDS = 86400000;
 
 export const chartPeriod = period => {
-  switch(period) {
+  switch (period) {
     case '12H': return {
       history: 'm15',
-      time: DAY_MILLISECONDS/2
-    } 
+      time: DAY_MILLISECONDS / 2
+    }
     case '1D': return {
       history: 'm30',
       time: DAY_MILLISECONDS
@@ -27,15 +27,15 @@ export const chartPeriod = period => {
     }
     case '1M': return {
       history: 'h12',
-      time: DAY_MILLISECONDS * 7
+      time: DAY_MILLISECONDS * 30
     }
-    case '1y': return {
+    case '1Y': return {
       history: 'd1',
       time: DAY_MILLISECONDS * 365
     }
     default: return {
       history: 'm15',
-      time: DAY_MILLISECONDS/2
-    } 
+      time: DAY_MILLISECONDS / 2
+    }
   }
 }

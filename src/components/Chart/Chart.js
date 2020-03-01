@@ -3,7 +3,7 @@ import Chart from 'chart.js';
 import * as moment from 'moment';
 
 
-const ChartCanvas = ({ data, rise }) => {
+const ChartCanvas = ({ data, rise, timeInterval }) => {
   const canvas = useRef();
   const ctx = useRef();
   useEffect(() => {
@@ -16,7 +16,7 @@ const ChartCanvas = ({ data, rise }) => {
           label: '',
           backgroundColor: rise ? CHART_COLORS.lightGreen : CHART_COLORS.lightRed,
           borderColor: rise ? CHART_COLORS.green : CHART_COLORS.red,
-          data: data.filter(item => Date.now() - (DAY_MILLISECONDS*365) < item.time).map(item => {
+          data: data.filter(item => Date.now() - timeInterval < item.time).map(item => {
             return {
               't': item.time,
               'y': item.priceUsd
@@ -105,8 +105,11 @@ const ChartCanvas = ({ data, rise }) => {
         }
       }
     };
-    new Chart(ctx.current, cfg);
-  }, [])
+    const newChart = new Chart(ctx.current, cfg);
+    return () => {
+      newChart.destroy();
+    }
+  }, [data, rise, timeInterval])
 
   return (
     <canvas ref={canvas}></canvas>
@@ -119,6 +122,5 @@ const CHART_COLORS = {
   red: 'rgb(244, 84, 65)',
   lightRed: 'rgba(244, 84, 65, 0.3)'
 };
-const DAY_MILLISECONDS = 86400000;
 
 export default ChartCanvas;
