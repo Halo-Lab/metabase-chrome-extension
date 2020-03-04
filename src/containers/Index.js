@@ -1,13 +1,13 @@
 import React from 'react';
 
-import CoinContainer from './CoinContainer';
+import Main from './Main';
 
 import '../style/index.scss';
 
 const Index = () => {
   return (
     <div className="container">
-      <CoinContainer />
+      <Main />
     </div>
   )
 }

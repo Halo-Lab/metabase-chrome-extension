@@ -1,6 +1,5 @@
 import React, { useRef, useEffect } from 'react';
 import Chart from 'chart.js';
-import * as moment from 'moment';
 
 
 const ChartCanvas = ({ data, rise, timeInterval }) => {
@@ -8,8 +7,8 @@ const ChartCanvas = ({ data, rise, timeInterval }) => {
   const ctx = useRef();
   useEffect(() => {
     ctx.current = canvas.current.getContext('2d');
-    ctx.current.canvas.width = 435;
-    ctx.current.canvas.height = 250;
+    ctx.current.canvas.width = 312;
+    ctx.current.canvas.height = 184;
     const cfg = {
       data: {
         datasets: [{
@@ -38,52 +37,21 @@ const ChartCanvas = ({ data, rise, timeInterval }) => {
         scales: {
           xAxes: [{
             type: 'time',
-            distribution: 'series',
-            offset: true,
-            ticks: {
-              major: {
-                enabled: true,
-                fontStyle: 'bold'
-              },
-              source: 'data',
-              autoSkip: true,
-              autoSkipPadding: 75,
-              maxRotation: 0,
-              sampleSize: 100
+            gridLines: {
+              display: false
             },
-            afterBuildTicks: function (scale, ticks) {
-              let majorUnit = scale._majorUnit;
-              let firstTick = ticks[0];
-              let i, ilen, val, tick, currMajor, lastMajor;
-
-              val = moment(ticks[0].value);
-              if ((majorUnit === 'minute' && val.second() === 0)
-                || (majorUnit === 'hour' && val.minute() === 0)
-                || (majorUnit === 'day' && val.hour() === 9)
-                || (majorUnit === 'month' && val.date() <= 3 && val.isoWeekday() === 1)
-                || (majorUnit === 'year' && val.month() === 0)) {
-                firstTick.major = true;
-              } else {
-                firstTick.major = false;
-              }
-              lastMajor = val.get(majorUnit);
-
-              for (i = 1, ilen = ticks.length; i < ilen; i++) {
-                tick = ticks[i];
-                val = moment(tick.value);
-                currMajor = val.get(majorUnit);
-                tick.major = currMajor !== lastMajor;
-                lastMajor = currMajor;
-              }
-              return ticks;
-            }
+            ticks: {
+              display: false,
+              padding: 0
+            },
           }],
           yAxes: [{
             ticks: {
+              display: false,
               padding: 0
             },
             gridLines: {
-              drawBorder: false
+              display: false
             },
             scaleLabel: {
               display: false,
@@ -117,7 +85,7 @@ const ChartCanvas = ({ data, rise, timeInterval }) => {
 }
 
 const CHART_COLORS = {
-  green: 'rgb(183, 220, 175)',
+  green: 'rgb(41, 197, 133)',
   lightGreen: 'rgba(183, 220, 175, 0.5)',
   red: 'rgb(244, 84, 65)',
   lightRed: 'rgba(244, 84, 65, 0.3)'

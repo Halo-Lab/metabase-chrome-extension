@@ -1,24 +1,2 @@
-html,
-body {
-  margin: 0;
-  padding: 0;
-  height: 100%;
-  width: 100%;
-  overflow-x: hidden;
-}
-
-body {
-  font-family: 'Roboto', Arial, sans-serif; 
-  width: 475px;
-  background: rgba(236, 239, 241, 0.26);
-}
-
-p {
-  margin: 0;
-}
-
-ul, ol {
-  padding: 0;
-  margin: 0;
-  list-style: none;
-}
+@import './veriables.scss';
+@import './global.scss';

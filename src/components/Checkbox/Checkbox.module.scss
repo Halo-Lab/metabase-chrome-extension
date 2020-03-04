@@ -15,8 +15,8 @@
 
 .Label {
   cursor: pointer;
-  &:hover path{
-    fill: #115293;
+  &:hover circle{
+    fill: #2642BA;
     transition: fill 0.5s;
   }
 }
@@ -26,7 +26,7 @@
   visibility: hidden;
   opacity: 0;
 
-  &:checked + .Label path{
-    fill: #115293;
+  &:checked + .Label circle{
+    fill: #2642BA;
   }
 }

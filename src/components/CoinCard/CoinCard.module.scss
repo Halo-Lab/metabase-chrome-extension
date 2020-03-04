@@ -6,10 +6,10 @@
   padding-top: 10px;
   padding-left: 20px;
   cursor: pointer;
-  & + .CoinCard {
-    margin-top: 10px;
-    border-top: 1px solid rgba(34, 36, 38, 0.1);
-  }
+  // & + .CoinCard {
+  //   margin-top: 10px;
+  //   border-top: 1px solid rgba(34, 36, 38, 0.1);
+  // }
 }
 
 .Row {
@@ -17,9 +17,6 @@
   align-items: center;
   min-height: 50px;
   width: 100%;
-    // + .Row {
-    //   margin-top: 15px;
-    // }
 }
 
 .Image {
