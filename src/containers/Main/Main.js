@@ -3,8 +3,7 @@ import classes from './Main.module.scss';
 import CoinCard from '../../components/CoinCard';
 import CoinService from '../../services/index';
 import Header from '../../components/Header';
-
-import Autocomplete from '../../components/Autocomplite/Autocomplite';
+import TableHeader from '../../components/TableHeader';
 
 const initialFavoritesState = {
   isActive: false,
@@ -18,7 +17,7 @@ const CoinContainer = () => {
   }, []);
 
   const fetchCoins = () => {
-    CoinService.limit(0, 10, result => setData(result.data));
+    CoinService.limit(0, 5, result => setData(result.data));
   };
 
   // const handleClick = name => {
@@ -50,9 +49,9 @@ const CoinContainer = () => {
   return (
     <div className={classes.CoinContainer}>
       <Header />
-      <div></div>
-      {data.map(coin => (
-        <CoinCard value={coin} key={coin.id} addFavorits={addToFavorits} />
+      <TableHeader />
+      {data.map((coin, index) => (
+        <CoinCard value={coin} key={coin.id} addFavorits={addToFavorits} index={index + 1} />
       ))}
     </div>
   );

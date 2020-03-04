@@ -1,19 +1,15 @@
-.Checkbox {
+.checkbox {
   position: absolute;
   z-index: 5;
-  left: 0;
-  top: 26px;
-}
-.Header {
-  top: 36px;
-  left: 90%;
+  left: 8px;
+  top: 25px;
   svg {
-    width:25px;
-    height: 25px;
+    width:16px;
+    height: 16px;
   }
 }
 
-.Label {
+.label {
   cursor: pointer;
   &:hover circle{
     fill: #2642BA;
@@ -21,12 +17,12 @@
   }
 }
 
-.Input {
+.input {
   position: absolute;
   visibility: hidden;
   opacity: 0;
 
-  &:checked + .Label circle{
+  &:checked + .label circle{
     fill: #2642BA;
   }
 }
