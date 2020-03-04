@@ -1,16 +1,16 @@
-import React, { Fragment, useState } from "react";
-import { array } from "prop-types";
+import React, { Fragment, useState } from 'react';
+import { array } from 'prop-types';
 import COIN_NAMES from './names';
 
-import classes from "./Autocomplite.module.scss";
+import classes from './Autocomplite.module.scss';
+import Icon from './images/search-icon.svg';
 
 const initialState = {
   activeSuggestion: 0,
   filteredSuggestions: [],
   showSuggestions: false,
-  userInput: ""
-}
-
+  userInput: ''
+};
 
 function Autocomplete({ handleClick }) {
   const [state, setState] = useState(initialState);
@@ -20,7 +20,10 @@ function Autocomplete({ handleClick }) {
 
     const filteredSuggestions = COIN_NAMES.filter(
       suggestion =>
-        suggestion.toLowerCase().slice(0, userInput.length).indexOf(userInput.toLowerCase()) > -1
+        suggestion
+          .toLowerCase()
+          .slice(0, userInput.length)
+          .indexOf(userInput.toLowerCase()) > -1
     );
 
     setState({
@@ -49,7 +52,7 @@ function Autocomplete({ handleClick }) {
         showSuggestions: false,
         userInput: filteredSuggestions[activeSuggestion]
       });
-      handleClick(filteredSuggestions[activeSuggestion]);
+      // handleClick(filteredSuggestions[activeSuggestion]);
     }
     if (e.keyCode === 38) {
       if (activeSuggestion === 0) {
@@ -79,11 +82,7 @@ function Autocomplete({ handleClick }) {
             }
 
             return (
-              <li
-                className={className}
-                key={suggestion}
-                onClick={onClick}
-              >
+              <li className={className} key={suggestion} onClick={onClick}>
                 {suggestion}
               </li>
             );
@@ -100,7 +99,8 @@ function Autocomplete({ handleClick }) {
   }
 
   return (
-    <Fragment>
+    <div className={classes.wrapper}>
+      <img className={classes.icon} src={Icon} alt="search icon" draggable="false" />
       <input
         className={classes.input}
         type="text"
@@ -109,19 +109,16 @@ function Autocomplete({ handleClick }) {
         value={state.userInput}
       />
       {suggestionsListComponent}
-    </Fragment>
-  )
-
+    </div>
+  );
 }
 
 Autocomplete.defaultProps = {
   suggestions: []
-}
+};
 
 Autocomplete.propTypes = {
   suggestions: array.isRequired
-}
-
-
+};
 
 export default Autocomplete;

@@ -5,10 +5,15 @@ body {
   height: 100%;
   width: 100%;
   overflow-x: hidden;
+
+}
+
+* {
+  box-sizing: border-box;
 }
 
 body {
-  font-family: 'Roboto', Arial, sans-serif; 
+  font-family: $font; 
   width: 456px;
   height: 688px;
   overflow-y: scroll;
