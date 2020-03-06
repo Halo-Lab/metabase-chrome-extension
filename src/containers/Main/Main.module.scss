@@ -4,6 +4,7 @@
   flex-direction: column;
   position: relative;
   max-height: 688px;
+  overflow-y: auto;
   padding-bottom: 24px;
   &::before{
     content: '';

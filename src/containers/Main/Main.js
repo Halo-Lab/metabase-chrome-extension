@@ -17,7 +17,7 @@ const CoinContainer = () => {
   }, []);
 
   const fetchCoins = () => {
-    CoinService.limit(0, 5, result => setData(result.data));
+    CoinService.limit(0, 10, result => setData(result.data));
   };
 
   // const handleClick = name => {

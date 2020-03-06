@@ -2,13 +2,12 @@
 .wrapper {
   display: flex;
   align-items: center;
-  height: 32px;
   background-color: rgba($color: $color-light-grey, $alpha: 0.1);
   color: $color-grey;
   font-size: 13px;
   line-height: 15px;
   text-transform: uppercase;
-  padding: 0 32px;
+  padding: 9px 32px;
 }
 
 .name {
