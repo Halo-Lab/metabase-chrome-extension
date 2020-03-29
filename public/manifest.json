@@ -3,7 +3,11 @@
   "version": "1.0",
   "manifest_version": 2,
   "browser_action": {
-      "default_popup": "index.html"
+    "default_icon": {
+      "24": "logo.png"
+    },
+    "default_title": "Metabase Real-time cryptocurrency trading charts, and more",
+    "default_popup": "index.html"
   },
   "content_security_policy": "script-src 'self' 'sha256-CMyYic0d7L0Q9AwjGU0n6buHFRR6bU3TOAe0P7DEJrk='; object-src 'self'"
 }

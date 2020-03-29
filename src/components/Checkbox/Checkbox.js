@@ -1,12 +1,18 @@
 import React from 'react';
-import { func, string } from 'prop-types';
+import PropTypes from 'prop-types';
 
 import styles from './Checkbox.module.scss';
 
-const Checkbox = ({ click, coin }) => {
+const Checkbox = ({ click, coin, isChecked }) => {
   return (
     <div className={styles.checkbox}>
-      <input className={styles.input} id={coin} type="checkbox" onClick={click} />
+      <input
+        className={styles.input}
+        id={coin}
+        type="checkbox"
+        onClick={click}
+        defaultChecked={isChecked}
+      />
       <label className={styles.label} htmlFor={coin}>
         <svg
           width="16"
@@ -28,12 +34,14 @@ const Checkbox = ({ click, coin }) => {
 
 Checkbox.defaultProps = {
   click: () => {},
-  coin: ''
+  coin: '',
+  isChecked: false
 };
 
 Checkbox.propTypes = {
-  click: func,
-  coin: string
+  click: PropTypes.func,
+  coin: PropTypes.string,
+  isChecked: PropTypes.bool
 };
 
 export default Checkbox;

@@ -23,15 +23,19 @@
 }
 
 .nosuggestions {
-  color: $color-light-grey;
-  padding: 0.5rem;
+  position: absolute;
+  color: rgb(244, 84, 65);
+  font-size: 12px;
+  bottom: -20px;
+  left: 50%;
+  transform: translateX(-50%);
 }
 
 .suggestions {
   position: absolute;
   top: 100%;
   left: 0;
-  background: $color-white;;
+  background: $color-white;
   border: 1px solid $color-light-grey;
   border-top-width: 0;
   list-style: none;

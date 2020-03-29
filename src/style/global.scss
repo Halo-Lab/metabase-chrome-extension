@@ -5,15 +5,15 @@ body {
   height: 100%;
   width: 100%;
   overflow-x: hidden;
-
 }
 
 * {
   box-sizing: border-box;
+  outline: none;
 }
 
 body {
-  font-family: $font; 
+  font-family: $font;
   width: 456px;
   overflow-y: scroll;
   background: $color-bg;
@@ -24,7 +24,8 @@ p {
   margin: 0;
 }
 
-ul, ol {
+ul,
+ol {
   padding: 0;
   margin: 0;
   list-style: none;

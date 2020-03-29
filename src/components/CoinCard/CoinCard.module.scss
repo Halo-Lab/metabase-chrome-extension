@@ -2,18 +2,16 @@
 
 .card {
   position: relative;
-  display:flex;
+  display: flex;
   align-items: center;
   flex-direction: column;
   padding: 10px 32px;
   background-color: $color-white;
-  cursor: pointer;
   font-weight: 500;
   font-size: 14px;
   box-shadow: 0px 4px 25px rgba(0, 0, 0, 0.05);
   & + .card {
     margin-top: 8px;
-    
   }
 }
 
@@ -22,6 +20,7 @@
   align-items: center;
   min-height: 50px;
   width: 100%;
+  cursor: pointer;
 }
 
 .image {
@@ -49,7 +48,7 @@
   text-align: right;
 }
 .persent {
-  width: 20%;
+  width: 14%;
   text-align: right;
 }
 
@@ -59,4 +58,73 @@
 
 .red {
   color: $color-pink;
+}
+
+.wrapper {
+  display: flex;
+  width: 100%;
+  margin-top: 16px;
+}
+
+.buttons {
+  display: flex;
+  flex-direction: column;
+  align-self: flex-start;
+  width: 64px;
+  border-radius: 10px;
+  background-color: #faf9f9;
+  margin-left: 17px;
+  padding: 4px 0;
+}
+.button {
+  font-weight: 600;
+  font-size: 11px;
+  line-height: 14px;
+  width: 100%;
+  padding: 4px 0;
+  border-radius: 10px;
+  border: transparent;
+  background-color: #faf9f9;
+  color: #87898d;
+  transition: 0.3s;
+
+  & + .button {
+    margin-top: 4px;
+  }
+
+  &.active {
+    background-color: #29c585;
+    color: $color-white;
+  }
+  &:hover {
+    background-color: #29c585;
+    color: $color-white;
+  }
+}
+
+.arrow {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50%;
+  width: 16px;
+  height: 16px;
+  margin-left: 2%;
+  span {
+    border: solid #fff;
+    border-width: 0 2px 2px 0;
+    padding: 2px;
+  }
+}
+
+.arrow.up {
+  background-color: $color-green;
+  transform: rotate(-135deg);
+  padding-bottom: 2px;
+  padding-right: 2px;
+}
+
+.arrow.down {
+  background-color: $color-pink;
+  transform: rotate(45deg);
 }

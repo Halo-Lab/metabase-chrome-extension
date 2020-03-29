@@ -5,11 +5,7 @@ import Main from './Main';
 import '../style/index.scss';
 
 const Index = () => {
-  return (
-    <div className="container">
-      <Main />
-    </div>
-  )
-}
+  return <Main />;
+};
 
 export default Index;

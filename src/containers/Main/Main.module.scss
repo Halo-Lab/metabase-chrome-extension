@@ -1,18 +1,43 @@
-.CoinContainer {
+@import '../../style/veriables.scss';
+
+.container {
   position: relative;
-  display: flex;
-  flex-direction: column;
-  position: relative;
-  max-height: 688px;
-  overflow-y: auto;
   padding-bottom: 24px;
-  &::before{
+  &::before {
     content: '';
     position: absolute;
     left: 0;
     bottom: 0;
     width: 100%;
     height: 8px;
-    background: linear-gradient(90deg, #2642BA -5%, #65C19C 149.01%);
+    background: linear-gradient(90deg, #2642ba -5%, #65c19c 149.01%);
+  }
+}
+
+.CoinContainer {
+  position: relative;
+  height: 360px;
+  overflow-y: auto;
+}
+
+.button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: $color-white;
+  background: $color-blue;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 17px;
+  width: 144px;
+  height: 40px;
+  border-radius: 25px;
+  margin-left: auto;
+  margin-top: 16px;
+  border: none;
+  transition: background 0.3s;
+
+  &:hover {
+    background: lighten($color-blue, 20%);
   }
 }

@@ -1,0 +1,16 @@
+.container {
+  position: relative;
+  width: 312px;
+  height: 184px;
+  border: 1px solid #f0f0f0;
+  border-radius: 15px;
+  overflow: hidden;
+}
+.canvas {
+  position: absolute;
+  bottom: -10px;
+  left: -11px;
+  width: calc(100% + 11px) !important;
+  height: 100%;
+  box-sizing: border-box;
+}

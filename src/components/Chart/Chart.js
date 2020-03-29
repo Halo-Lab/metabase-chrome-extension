@@ -1,31 +1,34 @@
 import React, { useRef, useEffect } from 'react';
 import Chart from 'chart.js';
 
+import style from './Chart.module.scss';
 
 const ChartCanvas = ({ data, rise, timeInterval }) => {
   const canvas = useRef();
   const ctx = useRef();
   useEffect(() => {
     ctx.current = canvas.current.getContext('2d');
-    ctx.current.canvas.width = 312;
-    ctx.current.canvas.height = 184;
     const cfg = {
       data: {
-        datasets: [{
-          label: '',
-          backgroundColor: rise ? CHART_COLORS.lightGreen : CHART_COLORS.lightRed,
-          borderColor: rise ? CHART_COLORS.green : CHART_COLORS.red,
-          data: data.filter(item => Date.now() - timeInterval < item.time).map(item => {
-            return {
-              't': item.time,
-              'y': item.priceUsd
-            }
-          }),
-          type: 'line',
-          pointRadius: 0,
-          lineTension: 0,
-          borderWidth: 2
-        }]
+        datasets: [
+          {
+            label: '',
+            backgroundColor: rise ? CHART_COLORS.lightGreen : CHART_COLORS.lightRed,
+            borderColor: rise ? CHART_COLORS.green : CHART_COLORS.red,
+            data: data
+              .filter(item => Date.now() - timeInterval < item.time)
+              .map(item => {
+                return {
+                  t: item.time,
+                  y: item.priceUsd
+                };
+              }),
+            type: 'line',
+            pointRadius: 0,
+            lineTension: 0,
+            borderWidth: 2
+          }
+        ]
       },
       options: {
         animation: {
@@ -35,38 +38,43 @@ const ChartCanvas = ({ data, rise, timeInterval }) => {
           display: false
         },
         scales: {
-          xAxes: [{
-            type: 'time',
-            gridLines: {
-              display: false
-            },
-            ticks: {
-              display: false,
-              padding: 0
-            },
-          }],
-          yAxes: [{
-            ticks: {
-              display: false,
-              padding: 0
-            },
-            gridLines: {
-              display: false
-            },
-            scaleLabel: {
-              display: false,
+          padding: 0,
+          xAxes: [
+            {
+              type: 'time',
+              gridLines: {
+                display: false
+              },
+              ticks: {
+                display: false,
+                padding: 10
+              }
             }
-          }]
+          ],
+          yAxes: [
+            {
+              ticks: {
+                display: false,
+                padding: 0
+              },
+              gridLines: {
+                display: false
+              },
+              scaleLabel: {
+                display: false
+              }
+            }
+          ]
         },
         tooltips: {
           intersect: false,
           mode: 'index',
-          custom: function (tooltip) {
+          custom: function(tooltip) {
             if (!tooltip) return;
             tooltip.displayColors = false;
           },
           callbacks: {
-            label: function (tooltipItem) {
+            label: function(tooltipItem) {
               return `Price: $${parseFloat(tooltipItem.value).toFixed(2)}`;
             }
           }
@@ -76,13 +84,15 @@ const ChartCanvas = ({ data, rise, timeInterval }) => {
     const newChart = new Chart(ctx.current, cfg);
     return () => {
       newChart.destroy();
-    }
-  }, [data, rise, timeInterval])
+    };
+  }, [data, rise, timeInterval]);
 
   return (
-    <canvas ref={canvas}></canvas>
-  )
-}
+    <div className={style.container}>
+      <canvas ref={canvas} className={style.canvas}></canvas>
+    </div>
+  );
+};
 
 const CHART_COLORS = {
   green: 'rgb(41, 197, 133)',

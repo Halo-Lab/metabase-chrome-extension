@@ -1,6 +1,6 @@
-import React, { Fragment, useState } from 'react';
-import { array } from 'prop-types';
+import React, { useState } from 'react';
 import COIN_NAMES from './names';
+import PropTypes from 'prop-types';
 
 import classes from './Autocomplite.module.scss';
 import Icon from './images/search-icon.svg';
@@ -12,11 +12,15 @@ const initialState = {
   userInput: ''
 };
 
-function Autocomplete({ handleClick }) {
+function Autocomplete({ findCoin, getCoins }) {
   const [state, setState] = useState(initialState);
 
   const onChange = e => {
     const userInput = e.currentTarget.value;
+
+    if (userInput.length === 0) {
+      getCoins();
+    }
 
     const filteredSuggestions = COIN_NAMES.filter(
       suggestion =>
@@ -40,7 +44,7 @@ function Autocomplete({ handleClick }) {
       showSuggestions: false,
       userInput: e.currentTarget.innerText
     });
-    handleClick(e.currentTarget.innerText);
+    findCoin(e.currentTarget.innerText);
   };
 
   const onKeyDown = e => {
@@ -48,11 +52,12 @@ function Autocomplete({ handleClick }) {
 
     if (e.keyCode === 13) {
       setState({
-        activeSuggestion: 0,
+        activeSuggestion,
         showSuggestions: false,
         userInput: filteredSuggestions[activeSuggestion]
       });
-      // handleClick(filteredSuggestions[activeSuggestion]);
+
+      findCoin(filteredSuggestions[activeSuggestion]);
     }
     if (e.keyCode === 38) {
       if (activeSuggestion === 0) {
@@ -90,11 +95,7 @@ function Autocomplete({ handleClick }) {
         </ul>
       );
     } else {
-      suggestionsListComponent = (
-        <div className={classes.nosuggestions}>
-          <em>No suggestions, you're on your own!</em>
-        </div>
-      );
+      suggestionsListComponent = <div className={classes.nosuggestions}>No matches!</div>;
     }
   }
 
@@ -114,11 +115,13 @@ function Autocomplete({ handleClick }) {
 }
 
 Autocomplete.defaultProps = {
-  suggestions: []
+  findCoin: () => {},
+  getCoins: () => {}
 };
 
 Autocomplete.propTypes = {
-  suggestions: array.isRequired
+  findCoin: PropTypes.func,
+  getCoins: PropTypes.func
 };
 
 export default Autocomplete;
