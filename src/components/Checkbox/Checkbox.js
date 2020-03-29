@@ -3,9 +3,9 @@ import PropTypes from 'prop-types';
 
 import styles from './Checkbox.module.scss';
 
-const Checkbox = ({ click, coin, isChecked }) => {
+const Checkbox = ({ click, coin, isChecked, addClass }) => {
   return (
-    <div className={styles.checkbox}>
+    <div className={`${styles.checkbox} ${addClass}`}>
       <input
         className={styles.input}
         id={coin}
@@ -35,13 +35,15 @@ const Checkbox = ({ click, coin, isChecked }) => {
 Checkbox.defaultProps = {
   click: () => {},
   coin: '',
-  isChecked: false
+  isChecked: false,
+  addClass: ''
 };
 
 Checkbox.propTypes = {
   click: PropTypes.func,
   coin: PropTypes.string,
-  isChecked: PropTypes.bool
+  isChecked: PropTypes.bool,
+  addClass: PropTypes.string
 };
 
 export default Checkbox;

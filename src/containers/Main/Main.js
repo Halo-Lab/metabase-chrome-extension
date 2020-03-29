@@ -25,7 +25,6 @@ const CoinContainer = () => {
     CoinService.limit(0, activeCoins, result => {
       setData(
         result.data.map(item => {
-          console.log({ ...item, isFavorite: favorites.list.includes(item.id) });
           return { ...item, isFavorite: favorites.list.includes(item.id) };
         })
       );
@@ -43,7 +42,13 @@ const CoinContainer = () => {
       fetchCoins();
     } else {
       const names = favorites.list.join(',');
-      CoinService.findCoins(names, result => setData(result['data']));
+      CoinService.findCoins(names, result => {
+        setData(
+          result.data.map(item => {
+            return { ...item, isFavorite: favorites.list.includes(item.id) };
+          })
+        );
+      });
     }
     setFavorites({ ...favorites, isActive: !favorites.isActive });
   };

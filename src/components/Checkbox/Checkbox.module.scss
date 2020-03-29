@@ -2,17 +2,16 @@
   position: absolute;
   z-index: 5;
   left: 8px;
-  top: 25px;
   svg {
-    width:16px;
+    width: 16px;
     height: 16px;
   }
 }
 
 .label {
   cursor: pointer;
-  &:hover circle{
-    fill: #2642BA;
+  &:hover circle {
+    fill: #2642ba;
     transition: fill 0.5s;
   }
 }
@@ -22,7 +21,7 @@
   visibility: hidden;
   opacity: 0;
 
-  &:checked + .label circle{
-    fill: #2642BA;
+  &:checked + .label circle {
+    fill: #2642ba;
   }
 }

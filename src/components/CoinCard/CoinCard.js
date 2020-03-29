@@ -55,7 +55,12 @@ const CoinCard = ({ value, addFavorits, index, isFavorite }) => {
   const percentClass = changePercent24Hr > 0 ? classes.green : classes.red;
   return (
     <div className={classes.card}>
-      <Checkbox click={() => addFavorits(id)} coin={id} isChecked={isFavorite} />
+      <Checkbox
+        click={() => addFavorits(id)}
+        coin={id}
+        isChecked={isFavorite}
+        addClass={classes.checkbox}
+      />
       <div className={classes.row} onClick={fetchPriceHistory}>
         <img className={classes.image} src={imageSrc} alt="icon" draggable="false" />
         <div className={classes.name}>
