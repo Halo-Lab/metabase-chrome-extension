@@ -1,0 +1,78 @@
+@import '../../../style/veriables.scss';
+
+.item {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 16px;
+  box-shadow: 0px 4px 25px rgba(0, 0, 0, 0.05);
+  border-radius: 15px;
+  width: 184px !important;
+  height: 112px !important;
+}
+
+.wrapper {
+  position: relative;
+  display: flex;
+  justify-content: space-between;
+}
+
+.name {
+  font-weight: 600;
+  font-size: 14px;
+  line-height: 17px;
+}
+
+.id {
+  font-weight: 600;
+  font-size: 14px;
+  line-height: 17px;
+  color: rgba(48, 48, 48, 0.4);
+}
+
+.price {
+  font-weight: 500;
+  font-size: 18px;
+  line-height: 21px;
+}
+
+.percent {
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 17px;
+}
+
+.green {
+  color: $color-green;
+}
+
+.red {
+  color: $color-pink;
+}
+
+.checkbox {
+  position: relative;
+  left: 0;
+}
+
+.arrow {
+  display: inline-block;
+  border: solid #fff;
+  border-width: 0 2px 2px 0;
+  width: 6px;
+  height: 6px;
+  margin-left: 8px;
+  margin-bottom: 2px;
+}
+
+.arrow.up {
+  border-color: $color-green;
+  transform: rotate(-135deg);
+  padding-bottom: 2px;
+  padding-right: 2px;
+}
+
+.arrow.down {
+  border-color: $color-pink;
+  transform: rotate(45deg);
+}

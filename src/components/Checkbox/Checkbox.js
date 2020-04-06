@@ -3,17 +3,11 @@ import PropTypes from 'prop-types';
 
 import styles from './Checkbox.module.scss';
 
-const Checkbox = ({ click, coin, isChecked, addClass }) => {
+const Checkbox = ({ click, coin, isChecked, addClass, func }) => {
   return (
     <div className={`${styles.checkbox} ${addClass}`}>
-      <input
-        className={styles.input}
-        id={coin}
-        type="checkbox"
-        onClick={click}
-        defaultChecked={isChecked}
-      />
-      <label className={styles.label} htmlFor={coin}>
+      <input className={styles.input} id={coin} type="checkbox" defaultChecked={isChecked} />
+      <label className={styles.label} htmlFor={coin} onClick={click}>
         <svg
           width="16"
           height="16"

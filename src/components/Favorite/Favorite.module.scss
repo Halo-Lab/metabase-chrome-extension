@@ -1,0 +1,19 @@
+.container {
+  padding: 24px;
+  background: #faf9f9;
+}
+
+.title {
+  margin: 0;
+  margin-bottom: 16px;
+  font-weight: 600;
+  font-size: 16px;
+  line-height: 19px;
+  color: #3a3a3a;
+}
+
+:global {
+  .swiper-container {
+    overflow: visible !important;
+  }
+}

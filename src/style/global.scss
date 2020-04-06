@@ -15,7 +15,8 @@ body {
 body {
   font-family: $font;
   width: 456px;
-  height: 505px;
+  min-height: 505px;
+  max-height: 90vh;
   overflow-y: scroll;
   background: $color-bg;
   color: $color-black;

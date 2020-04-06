@@ -1,13 +1,14 @@
-import React, { useState, useEffect, Fragment } from 'react';
+import React, { useState, useEffect } from 'react';
 import classes from './Main.module.scss';
 import CoinCard from '../../components/CoinCard';
 import CoinService from '../../services/index';
 import Header from '../../components/Header';
 import TableHeader from '../../components/TableHeader';
+import Favorites from '../../components/Favorite';
 
 const initialFavoritesState = {
-  isActive: false,
-  list: localStorage.getItem('favorites') ? localStorage.getItem('favorites').split(',') : []
+  list: localStorage.getItem('favorites') ? localStorage.getItem('favorites').split(',') : [],
+  data: []
 };
 
 const initialActiveCoins = 4;
@@ -19,7 +20,9 @@ const CoinContainer = () => {
 
   useEffect(() => {
     fetchCoins();
-  }, [activeCoins]);
+    sortFavorits();
+    localStorage.setItem('favorites', favorites.list);
+  }, [activeCoins, favorites.list]);
 
   const fetchCoins = () => {
     CoinService.limit(0, activeCoins, result => {
@@ -34,37 +37,28 @@ const CoinContainer = () => {
   const findCoin = name => {
     CoinService.findCoin(name, result => setData([result.data]));
   };
+
   const sortFavorits = () => {
-    if (favorites.list.length === 0) {
-      return;
-    }
-    if (favorites.isActive) {
-      fetchCoins();
-    } else {
+    if (favorites.list.length > 0) {
       const names = favorites.list.join(',');
       CoinService.findCoins(names, result => {
-        setData(
-          result.data.map(item => {
-            return { ...item, isFavorite: favorites.list.includes(item.id) };
-          })
-        );
+        const favoriteData = result.data.map(item => {
+          return { ...item, isFavorite: favorites.list.includes(item.id) };
+        });
+        setFavorites({ ...favorites, data: favoriteData });
       });
+    } else {
+      setFavorites({ ...favorites, data: [] });
     }
-    setFavorites({ ...favorites, isActive: !favorites.isActive });
   };
 
-  const addToFavorits = id => {
+  const toogleFavorite = id => {
     if (favorites.list.includes(id)) {
       const newFavoritesList = favorites.list.filter(item => item !== id);
-      const names = newFavoritesList.join(',');
       setFavorites({ ...favorites, list: newFavoritesList });
-      localStorage.setItem('favorites', favorites.list);
-      if (favorites.isActive) {
-        CoinService.findCoins(names, result => setData(result['data']));
-      }
     } else {
-      favorites.list.push(id);
-      localStorage.setItem('favorites', favorites.list);
+      const newFavoritesList = [...favorites.list, id];
+      setFavorites({ ...favorites, list: newFavoritesList });
     }
   };
 
@@ -75,22 +69,25 @@ const CoinContainer = () => {
 
   return (
     <div className={classes.container}>
-      <Header findCoin={findCoin} getCoins={fetchCoins} sortFavorits={sortFavorits} />
+      <Header findCoin={findCoin} getCoins={fetchCoins} />
+      {favorites.data.length > 0 ? (
+        <Favorites data={favorites.data} toogleFavorite={toogleFavorite} />
+      ) : null}
       <TableHeader />
       <div className={classes.CoinContainer}>
         {data.map((coin, index) => (
           <CoinCard
             value={coin}
             key={coin.id}
-            addFavorits={addToFavorits}
+            addFavorits={toogleFavorite}
             isFavorite={coin.isFavorite}
             index={index + 1}
           />
         ))}
-        <button onClick={showMoreCoinsClick} className={classes.button}>
-          View More
-        </button>
       </div>
+      <button onClick={showMoreCoinsClick} className={classes.button}>
+        View More
+      </button>
     </div>
   );
 };
