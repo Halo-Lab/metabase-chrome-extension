@@ -3,7 +3,7 @@
 <img src="http://api.halo-lab.com/wp-content/uploads/metabase.gif" alt="Metabse chrome extension" width="600" height="526">
 
 Metabase is a chrome extension that shows the current course of various cryptocurrencies.
-The main task is to track the cryptocurrency. The server receives updated data, and it monitors the prices of the cryptocurrency. The extension gets updated statistics from the CoinCap resource. CoinCap is a useful tool for real-time pricing and market activity for over 1,000 cryptocurrencies.
+The main task is to track the cryptocurrency. The server receives updated data, and it monitors the prices of the cryptocurrency. The extension gets updated statistics from the [CoinCap](https://coincap.io) API. CoinCap is a useful tool for real-time pricing and market activity for over 1,000 cryptocurrencies.
 
 ## Installation
 
