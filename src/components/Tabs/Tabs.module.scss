@@ -1,0 +1,61 @@
+@import '../../style/variables.scss';
+
+.tab {
+  &__buttons {
+    padding: 16px 0;
+  }
+  &__btn {
+    display: flex;
+    align-items: center;
+    font-size: 14px;
+    line-height: 17px;
+    background: transparent;
+
+    border-radius: 8px;
+    border: none;
+    appearance: none;
+    color: $color-gray;
+    padding: 3px 13px;
+    min-width: 108px;
+    cursor: pointer;
+    &:first-child {
+      margin-right: 6px;
+    }
+  }
+  &__icon {
+    margin-right: 6px;
+  }
+  &__wrapper {
+    border: 1px solid #efefef;
+    box-sizing: border-box;
+    border-radius: 8px;
+    display: flex;
+    justify-content: center;
+    padding: 3px;
+    max-width: min-content;
+    margin: 0 auto;
+  }
+  &__active {
+    background: $color-blue;
+    cursor: pointer;
+    color: $color-white;
+    box-shadow: 0px 4px 25px rgba(0, 0, 0, 0.05);
+    :global {
+      .color {
+        fill: $color-white;
+        &-2 {
+          fill: $color-blue;
+        }
+      }
+    }
+  }
+}
+
+:global {
+  .color {
+    fill: $color-gray;
+    &-2 {
+      fill: $color-white;
+    }
+  }
+}

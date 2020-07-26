@@ -1,4 +1,4 @@
-@import '../../style/veriables.scss';
+@import '../../style/variables.scss';
 
 .container {
   position: relative;
@@ -41,5 +41,13 @@
 
   &:hover {
     background: lighten($color-blue, 20%);
+  }
+}
+
+.tab {
+  position: relative;
+  display: none;
+  &__active {
+    display: block;
   }
 }

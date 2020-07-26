@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from 'react';
+import classNames from 'classnames';
 import classes from './Main.module.scss';
 import CoinCard from '../../components/CoinCard';
 import CoinService from '../../services/index';
 import Header from '../../components/Header';
 import TableHeader from '../../components/TableHeader';
 import Favorites from '../../components/Favorite';
+import Tabs from '../../components/Tabs';
 
 const initialFavoritesState = {
   list: localStorage.getItem('favorites') ? localStorage.getItem('favorites').split(',') : [],
@@ -17,12 +19,6 @@ const CoinContainer = () => {
   const [data, setData] = useState([]);
   const [favorites, setFavorites] = useState(initialFavoritesState);
   const [activeCoins, setActiveCoins] = useState(initialActiveCoins);
-
-  useEffect(() => {
-    fetchCoins();
-    sortFavorits();
-    localStorage.setItem('favorites', favorites.list);
-  }, [activeCoins, favorites.list]);
 
   const fetchCoins = () => {
     CoinService.limit(0, activeCoins, result => {
@@ -67,25 +63,48 @@ const CoinContainer = () => {
     setActiveCoins(newValue);
   };
 
+  useEffect(() => {
+    fetchCoins();
+    sortFavorits();
+    localStorage.setItem('favorites', favorites.list);
+  }, [activeCoins, favorites.list]);
+
+  const [activeTab, setActiveTab] = useState(0);
+
+  const changeActiveTab = s => {
+    setActiveTab(s);
+  };
+
+  const isActive = classNames(classes.tab, classes.tab__active);
+
   return (
     <div className={classes.container}>
       <Header findCoin={findCoin} getCoins={fetchCoins} />
       {favorites.data.length > 0 ? (
         <Favorites data={favorites.data} toogleFavorite={toogleFavorite} />
       ) : null}
+      <Tabs
+        data={activeTab}
+        onchange={e => {
+          changeActiveTab(e);
+        }}
+      />
       <TableHeader />
       <div className={classes.CoinContainer}>
-        {data.map((coin, index) => (
-          <CoinCard
-            value={coin}
-            key={coin.id}
-            addFavorits={toogleFavorite}
-            isFavorite={coin.isFavorite}
-            index={index + 1}
-          />
-        ))}
+        <div className={activeTab === 0 ? isActive : classes.tab}>
+          {data.map((coin, index) => (
+            <CoinCard
+              value={coin}
+              key={coin.id}
+              addFavorits={toogleFavorite}
+              isFavorite={coin.isFavorite}
+              index={index + 1}
+            />
+          ))}
+        </div>
+        <div className={activeTab === 1 ? isActive : classes.tab}>123</div>
       </div>
-      <button onClick={showMoreCoinsClick} className={classes.button}>
+      <button onClick={showMoreCoinsClick} className={classes.button} type="button">
         View More
       </button>
     </div>

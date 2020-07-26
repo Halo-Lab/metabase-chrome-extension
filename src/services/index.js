@@ -1,10 +1,10 @@
-const  CoinService = {
+const CoinService = {
   baseUrl: 'https://api.coincap.io/v2/',
-  fetch(url, callback){
+  fetch(url, callback) {
     return fetch(url)
-    .then(response => response.json())
-    .then(callback)
-    .catch(error => console.log('error', error));
+      .then(response => response.json())
+      .then(callback)
+      .catch(error => console.log('error', error));
   },
   findCoin(name, callback) {
     const url = `${this.baseUrl}assets/${name}`;
@@ -14,7 +14,7 @@ const  CoinService = {
     const url = `${this.baseUrl}assets?ids=${names}`;
     return this.fetch(url, callback);
   },
-  limit(offset=0, limit , callback) {
+  limit(offset = 0, limit, callback) {
     const url = `${this.baseUrl}assets?offset=${offset}&limit=${limit}`;
     return this.fetch(url, callback);
   },
@@ -22,6 +22,6 @@ const  CoinService = {
     const url = `${this.baseUrl}assets/${name}/history?interval=${period}`;
     return this.fetch(url, callback);
   }
-}
+};
 
 export default CoinService;
