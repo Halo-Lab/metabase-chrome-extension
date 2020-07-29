@@ -2,11 +2,13 @@ import React, { useState, useEffect } from 'react';
 import classNames from 'classnames';
 import classes from './Main.module.scss';
 import CoinCard from '../../components/CoinCard';
-import CoinService from '../../services/index';
+import CoinService from '../../services/CoinService';
 import Header from '../../components/Header';
 import TableHeader from '../../components/TableHeader';
 import Favorites from '../../components/Favorite';
 import Tabs from '../../components/Tabs';
+
+import Currency from '../../components/Currency';
 
 const initialFavoritesState = {
   list: localStorage.getItem('favorites') ? localStorage.getItem('favorites').split(',') : [],
@@ -102,7 +104,9 @@ const CoinContainer = () => {
             />
           ))}
         </div>
-        <div className={activeTab === 1 ? isActive : classes.tab}>123</div>
+        <div className={activeTab === 1 ? isActive : classes.tab}>
+          <Currency />
+        </div>
       </div>
       <button onClick={showMoreCoinsClick} className={classes.button} type="button">
         View More

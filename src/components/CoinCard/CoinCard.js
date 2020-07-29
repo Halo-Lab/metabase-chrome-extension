@@ -4,7 +4,7 @@ import Checkbox from '../Checkbox/Checkbox';
 import classes from './CoinCard.module.scss';
 import PropTypes from 'prop-types';
 
-import CoinService from '../../services/index';
+import CoinService from '../../services/CoinService';
 import { cutValueAfterPoint, chartPeriod } from '../../utils';
 
 const initialChartState = {
