@@ -6,7 +6,7 @@ const Currency = () => {
   const [data, setData] = useState(null);
 
   const getCurrency = async () => {
-    const res = await CurrencyService.fetch('https://api.exchangerate.host/latest?base=UAH');
+    const res = await CurrencyService.baseValue('UAH');
     setData(res.rates);
   };
 
