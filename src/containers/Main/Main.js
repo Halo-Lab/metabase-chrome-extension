@@ -105,7 +105,7 @@ const CoinContainer = () => {
           ))}
         </div>
         <div className={activeTab === 1 ? isActive : classes.tab}>
-          <Currency />
+          <Currency addFavorits={toogleFavorite} />
         </div>
       </div>
       <button onClick={showMoreCoinsClick} className={classes.button} type="button">

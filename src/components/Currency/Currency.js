@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import CurrencyService from '../../services/CurrencyService';
-import CurrencyItem from '../CurrencyItem';
+import CurrencyCard from '../CurrencyCard';
 
 const Currency = () => {
   const [data, setData] = useState(null);
@@ -14,7 +14,7 @@ const Currency = () => {
     getCurrency();
   }, []);
 
-  return <CurrencyItem data={data} />;
+  return <CurrencyCard data={data} />;
 };
 
 export default Currency;
