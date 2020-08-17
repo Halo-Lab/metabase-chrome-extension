@@ -4,6 +4,8 @@ import CurrencyService from '../../services/CurrencyService';
 
 import Checkbox from '../Checkbox/Checkbox';
 
+import VARIABLES from '../../variables';
+
 const CurrencyCard = ({ data, addFavorits }) => {
   const [countries, setCountries] = useState(null);
 
@@ -16,12 +18,14 @@ const CurrencyCard = ({ data, addFavorits }) => {
     getCountries();
   }, []);
 
-  console.log(countries);
+  const isoCode = VARIABLES.isoCodes;
+  console.log(isoCode.EUR);
+
   if (data) {
     return (
       <div>
-        {Object.keys(data).map(name => (
-          <div className={classes.card}>
+        {Object.keys(data).map((name, index) => (
+          <div className={classes.card} key={index}>
             <Checkbox addClass={classes.checkbox} />
             <div className={classes.row}>
               <img
@@ -31,7 +35,10 @@ const CurrencyCard = ({ data, addFavorits }) => {
                 draggable="false"
               />
               <div className={classes.name}>
-                <p>{name}</p>
+                <p>
+                  {index + 1}.{isoCode[name]}
+                </p>
+                <span>{name}</span>
               </div>
               <span className={classes.price}>{(1 / data[name]).toFixed(2)}</span>
               {/* <div className={`${classes.arrow} ${priceState}`}>
@@ -42,7 +49,7 @@ const CurrencyCard = ({ data, addFavorits }) => {
               </div>
             </div>
           </div>
-      ))}
+        ))}
       </div>
     );
   }

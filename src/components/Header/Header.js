@@ -1,9 +1,9 @@
 import React from 'react';
-import classes from './Header.module.scss';
+import PropTypes from 'prop-types';
+
 import Logo from './images/logo.svg';
 import Autocomplite from '../Autocomplite';
-
-import PropTypes from 'prop-types';
+import classes from './Header.module.scss';
 
 const Header = ({ findCoin, getCoins }) => {
   return (
