@@ -1,7 +1,9 @@
 import isoCodes from './isoCodes';
+import currencySymbols from './currencySymbols';
 
 const VARIABLES = {
-  isoCodes
+  isoCodes,
+  currencySymbols
 };
 
 export default VARIABLES;

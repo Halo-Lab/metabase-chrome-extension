@@ -19,7 +19,7 @@ const CurrencyCard = ({ data, addFavorits }) => {
   }, []);
 
   const isoCode = VARIABLES.isoCodes;
-  console.log(isoCode.EUR);
+  const symbols = VARIABLES.currencySymbols;
 
   if (data) {
     return (
@@ -40,7 +40,10 @@ const CurrencyCard = ({ data, addFavorits }) => {
                 </p>
                 <span>{name}</span>
               </div>
-              <span className={classes.price}>{(1 / data[name]).toFixed(2)}</span>
+              <span className={classes.price}>
+                {(1 / data[name]).toFixed(2)}
+                {symbols[name]}
+              </span>
               {/* <div className={`${classes.arrow} ${priceState}`}>
                 <span></span>
               </div> */}
