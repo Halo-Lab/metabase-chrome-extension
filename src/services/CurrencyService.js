@@ -14,6 +14,10 @@ const CurrencyService = {
   countries(name) {
     const url = `${this.baseUrlForCountriesInfo}${name}`;
     return this.fetch(url);
+  },
+  limit(names, callback) {
+    const url = `${this.baseUrl}base=UAH&symbols=${names}`;
+    return this.fetch(url, callback);
   }
 };
 

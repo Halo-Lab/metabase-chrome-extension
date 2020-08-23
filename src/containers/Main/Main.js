@@ -16,11 +16,15 @@ const initialFavoritesState = {
 };
 
 const initialActiveCoins = 4;
+const initialActiveCurrencies = 4;
 
 const CoinContainer = () => {
   const [data, setData] = useState([]);
   const [favorites, setFavorites] = useState(initialFavoritesState);
   const [activeCoins, setActiveCoins] = useState(initialActiveCoins);
+  const [activeCurrency, setActiveCurrency] = useState(initialActiveCoins);
+  const [activeTab, setActiveTab] = useState(0);
+  console.log(data);
 
   const fetchCoins = () => {
     CoinService.limit(0, activeCoins, result => {
@@ -61,8 +65,13 @@ const CoinContainer = () => {
   };
 
   const showMoreCoinsClick = () => {
-    const newValue = activeCoins + initialActiveCoins;
-    setActiveCoins(newValue);
+    if (activeTab) {
+      const newValue = activeCurrency + initialActiveCurrencies;
+      setActiveCurrency(newValue);
+    } else {
+      const newValue = activeCoins + initialActiveCoins;
+      setActiveCoins(newValue);
+    }
   };
 
   useEffect(() => {
@@ -70,8 +79,6 @@ const CoinContainer = () => {
     sortFavorits();
     localStorage.setItem('favorites', favorites.list);
   }, [activeCoins, favorites.list]);
-
-  const [activeTab, setActiveTab] = useState(0);
 
   const changeActiveTab = s => {
     setActiveTab(s);
@@ -105,7 +112,7 @@ const CoinContainer = () => {
           ))}
         </div>
         <div className={activeTab === 1 ? isActive : classes.tab}>
-          <Currency addFavorits={toogleFavorite} />
+          <Currency addFavorits={toogleFavorite} count={activeCurrency} />
         </div>
       </div>
       <button onClick={showMoreCoinsClick} className={classes.button} type="button">

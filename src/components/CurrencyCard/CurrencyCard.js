@@ -1,23 +1,11 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import classes from './CurrencyCard.module.scss';
-import CurrencyService from '../../services/CurrencyService';
 
 import Checkbox from '../Checkbox/Checkbox';
 
 import VARIABLES from '../../variables';
 
 const CurrencyCard = ({ data, addFavorits }) => {
-  const [countries, setCountries] = useState(null);
-
-  const getCountries = async () => {
-    const res = await CurrencyService.countries('USD');
-    setCountries(res);
-  };
-
-  useEffect(() => {
-    getCountries();
-  }, []);
-
   const isoCode = VARIABLES.isoCodes;
   const symbols = VARIABLES.currencySymbols;
 
