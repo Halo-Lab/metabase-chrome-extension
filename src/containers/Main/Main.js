@@ -24,7 +24,6 @@ const CoinContainer = () => {
   const [activeCoins, setActiveCoins] = useState(initialActiveCoins);
   const [activeCurrency, setActiveCurrency] = useState(initialActiveCoins);
   const [activeTab, setActiveTab] = useState(0);
-  console.log(data);
 
   const fetchCoins = () => {
     CoinService.limit(0, activeCoins, result => {
@@ -54,13 +53,16 @@ const CoinContainer = () => {
     }
   };
 
-  const toogleFavorite = id => {
-    if (favorites.list.includes(id)) {
-      const newFavoritesList = favorites.list.filter(item => item !== id);
+  const toogleFavorite = name => {
+    if (favorites.list.includes(name)) {
+      const newFavoritesList = favorites.list.filter(item => item !== name);
+      console.log(newFavoritesList);
       setFavorites({ ...favorites, list: newFavoritesList });
     } else {
-      const newFavoritesList = [...favorites.list, id];
+      const newFavoritesList = [...favorites.list, name];
+
       setFavorites({ ...favorites, list: newFavoritesList });
+      console.log(newFavoritesList);
     }
   };
 

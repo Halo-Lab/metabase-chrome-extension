@@ -5,7 +5,7 @@ import Checkbox from '../Checkbox/Checkbox';
 
 import VARIABLES from '../../variables';
 
-const CurrencyCard = ({ data, addFavorits }) => {
+const CurrencyCard = ({ data, addFavorits, base }) => {
   const isoCode = VARIABLES.isoCodes;
   const symbols = VARIABLES.currencySymbols;
 
@@ -14,7 +14,11 @@ const CurrencyCard = ({ data, addFavorits }) => {
       <div>
         {Object.keys(data).map((name, index) => (
           <div className={classes.card} key={index}>
-            <Checkbox addClass={classes.checkbox} />
+            <Checkbox
+              click={() => addFavorits(name)}
+              // isChecked={isFavorite}
+              addClass={classes.checkbox}
+            />
             <div className={classes.row}>
               <img
                 className={classes.image}
@@ -30,14 +34,9 @@ const CurrencyCard = ({ data, addFavorits }) => {
               </div>
               <span className={classes.price}>
                 {(1 / data[name]).toFixed(2)}
-                {symbols[name]}
+                {symbols[base]}
               </span>
-              {/* <div className={`${classes.arrow} ${priceState}`}>
-                <span></span>
-              </div> */}
-              <div className={classes.persent}>
-                {/* <span className={percentClass}>{percent}%</span> */}
-              </div>
+              <div className={classes.persent}></div>
             </div>
           </div>
         ))}

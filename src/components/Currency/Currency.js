@@ -5,8 +5,9 @@ import CurrencyCard from '../CurrencyCard';
 
 import VARIABLES from '../../variables';
 
-const Currency = ({ count }) => {
+const Currency = ({ count, addFavorits }) => {
   const [data, setData] = useState(null);
+  const [base, setBase] = useState(null);
 
   const activeCurrency = count;
 
@@ -16,14 +17,16 @@ const Currency = ({ count }) => {
     arrayOfCurrency.splice(activeCurrency);
 
     const currencies = await CurrencyService.limit(arrayOfCurrency);
+    console.log('cur', currencies);
     setData(currencies.rates);
+    setBase(currencies.base);
   };
 
   useEffect(() => {
     getItems();
   }, [activeCurrency]);
 
-  return <CurrencyCard data={data} />;
+  return <CurrencyCard data={data} addFavorits={addFavorits} base={base} />;
 };
 
 Currency.defaultProps = {

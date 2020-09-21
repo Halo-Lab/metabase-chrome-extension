@@ -7,6 +7,7 @@ import Swiper from 'react-id-swiper';
 import 'swiper/swiper.scss';
 
 const Favorite = ({ data, toogleFavorite }) => {
+  console.log(data);
   const params = {
     slidesPerView: 'auto',
     spaceBetween: 16

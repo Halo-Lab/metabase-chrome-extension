@@ -1,6 +1,7 @@
 const CurrencyService = {
   baseUrl: 'https://api.exchangerate.host/latest?',
   baseUrlForCountriesInfo: `https://restcountries.eu/rest/v2/currency/`,
+  base: 'UAH',
   fetch(url, callback) {
     return fetch(url)
       .then(response => response.json())
@@ -16,7 +17,7 @@ const CurrencyService = {
     return this.fetch(url);
   },
   limit(names, callback) {
-    const url = `${this.baseUrl}base=UAH&symbols=${names}`;
+    const url = `${this.baseUrl}base=${this.base}&symbols=${names}`;
     return this.fetch(url, callback);
   }
 };
