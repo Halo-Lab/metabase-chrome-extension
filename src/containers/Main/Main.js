@@ -107,15 +107,19 @@ const CoinContainer = () => {
       <TableHeader />
       <div className={classes.CoinContainer}>
         <div className={activeTab === 0 ? isActive : classes.tab}>
-          {data.map((coin, index) => (
-            <CoinCard
-              value={coin}
-              key={coin.id}
-              addFavorits={toogleFavorite}
-              isFavorite={coin.isFavorite}
-              index={index + 1}
-            />
-          ))}
+          {data.map((coin, index) => {
+            if (coin) {
+              return (
+                <CoinCard
+                value={coin}
+                key={coin.id}
+                addFavorits={toogleFavorite}
+                isFavorite={coin.isFavorite}
+                index={index + 1}
+              />
+              )
+            }
+          })}
         </div>
         <div className={activeTab === 1 ? isActive : classes.tab}>
           <Currency findData={curData} addFavorits={toogleFavorite} count={activeCurrency} />

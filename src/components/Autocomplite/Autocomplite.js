@@ -19,6 +19,14 @@ function Autocomplete({ findCoin, getCoins, activeTab, findCurrency}) {
   const [state, setState] = useState(initialState);
   const CURRENCY_NAMES = Object.values(currency);
 
+  const changeState = (userInput) => {
+    setState({
+      ...state,
+      showSuggestions: false,
+      userInput
+    });
+  }
+
   const onChange = e => {
     const userInput = e.currentTarget.value;
 
@@ -55,32 +63,22 @@ function Autocomplete({ findCoin, getCoins, activeTab, findCurrency}) {
   };
 
   const onClick = e => {
-    let findText = e.currentTarget.innerText;
+    let userInput = e.currentTarget.innerText;
     if (activeTab) {
-      setState({
-        ...state,
-        showSuggestions: false,
-        userInput: e.currentTarget.innerText
-      });
-      
-      findCurrency(findKey(findText, currency));
+      changeState(userInput);
+      findCurrency(findKey(userInput, currency));
     } else {
-      setState({
-        ...state,
-        showSuggestions: false,
-        userInput: e.currentTarget.innerText
-      });
-      findCoin(e.currentTarget.innerText);
+      changeState(userInput);
+      findCoin(userInput);
     }
-    
   };
 
   const onKeyDown = e => {
     const { activeSuggestion, filteredSuggestions } = state;
+    let nameOfCurrency = null;
 
-
-    let nameOfCurrency = findKey(filteredSuggestions[activeSuggestion], currency);
-    if (e.keyCode === 13) {
+    if (filteredSuggestions !== undefined) nameOfCurrency = findKey(filteredSuggestions[activeSuggestion], currency);
+    if (e.keyCode === 13 && filteredSuggestions !== undefined) {
       setState({
         activeSuggestion,
         showSuggestions: false,
