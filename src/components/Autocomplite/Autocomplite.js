@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import COIN_NAMES from './names';
+import currency from '../../variables/isoCodes'
 import PropTypes from 'prop-types';
+import findKey from '../../helpers/findKey';
 
 import classes from './Autocomplite.module.scss';
 import Icon from './images/search-icon.svg';
@@ -12,8 +14,10 @@ const initialState = {
   userInput: ''
 };
 
-function Autocomplete({ findCoin, getCoins }) {
+function Autocomplete({ findCoin, getCoins, activeTab, findCurrency}) {
+
   const [state, setState] = useState(initialState);
+  const CURRENCY_NAMES = Object.values(currency);
 
   const onChange = e => {
     const userInput = e.currentTarget.value;
@@ -22,13 +26,25 @@ function Autocomplete({ findCoin, getCoins }) {
       getCoins();
     }
 
-    const filteredSuggestions = COIN_NAMES.filter(
-      suggestion =>
-        suggestion
-          .toLowerCase()
-          .slice(0, userInput.length)
-          .indexOf(userInput.toLowerCase()) > -1
-    );
+    let filteredSuggestions = null;
+
+    if (activeTab) {
+      filteredSuggestions = CURRENCY_NAMES.filter(
+        suggestion =>
+          suggestion
+            .toLowerCase()
+            .slice(0, userInput.length)
+            .indexOf(userInput.toLowerCase()) > -1
+      );
+    } else {
+      filteredSuggestions = COIN_NAMES.filter(
+        suggestion =>
+          suggestion
+            .toLowerCase()
+            .slice(0, userInput.length)
+            .indexOf(userInput.toLowerCase()) > -1
+      );
+    }
 
     setState({
       ...state,
@@ -39,17 +55,31 @@ function Autocomplete({ findCoin, getCoins }) {
   };
 
   const onClick = e => {
-    setState({
-      ...state,
-      showSuggestions: false,
-      userInput: e.currentTarget.innerText
-    });
-    findCoin(e.currentTarget.innerText);
+    let findText = e.currentTarget.innerText;
+    if (activeTab) {
+      setState({
+        ...state,
+        showSuggestions: false,
+        userInput: e.currentTarget.innerText
+      });
+      
+      findCurrency(findKey(findText, currency));
+    } else {
+      setState({
+        ...state,
+        showSuggestions: false,
+        userInput: e.currentTarget.innerText
+      });
+      findCoin(e.currentTarget.innerText);
+    }
+    
   };
 
   const onKeyDown = e => {
     const { activeSuggestion, filteredSuggestions } = state;
 
+
+    let nameOfCurrency = findKey(filteredSuggestions[activeSuggestion], currency);
     if (e.keyCode === 13) {
       setState({
         activeSuggestion,
@@ -57,7 +87,11 @@ function Autocomplete({ findCoin, getCoins }) {
         userInput: filteredSuggestions[activeSuggestion]
       });
 
-      findCoin(filteredSuggestions[activeSuggestion]);
+      if (activeTab) {
+        findCurrency(nameOfCurrency)
+      } else {
+        findCoin(filteredSuggestions[activeSuggestion]);
+      }
     }
     if (e.keyCode === 38) {
       if (activeSuggestion === 0) {

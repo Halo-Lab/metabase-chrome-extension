@@ -19,6 +19,10 @@ const CurrencyService = {
   limit(names, callback) {
     const url = `${this.baseUrl}base=${this.base}&symbols=${names}`;
     return this.fetch(url, callback);
+  },
+  findCoin(name, callback) {
+    const url = `${this.baseUrl}base=${this.base}&symbols=${name}`;
+    return this.fetch(url, callback)
   }
 };
 

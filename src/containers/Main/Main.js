@@ -9,6 +9,7 @@ import Favorites from '../../components/Favorite';
 import Tabs from '../../components/Tabs';
 
 import Currency from '../../components/Currency';
+import CurrencyService from '../../services/CurrencyService';
 
 const initialFavoritesState = {
   list: localStorage.getItem('favorites') ? localStorage.getItem('favorites').split(',') : [],
@@ -25,6 +26,7 @@ const CoinContainer = () => {
   const [activeCurrency, setActiveCurrency] = useState(initialActiveCoins);
   const [activeTab, setActiveTab] = useState(0);
 
+  const [curData, setCurData] = useState([]);
   const fetchCoins = () => {
     CoinService.limit(0, activeCoins, result => {
       setData(
@@ -38,6 +40,10 @@ const CoinContainer = () => {
   const findCoin = name => {
     CoinService.findCoin(name, result => setData([result.data]));
   };
+
+  const findCurrency = name => {
+    CurrencyService.findCoin(name, res => setCurData(res.rates))
+  }
 
   const sortFavorits = () => {
     if (favorites.list.length > 0) {
@@ -56,13 +62,11 @@ const CoinContainer = () => {
   const toogleFavorite = name => {
     if (favorites.list.includes(name)) {
       const newFavoritesList = favorites.list.filter(item => item !== name);
-      console.log(newFavoritesList);
       setFavorites({ ...favorites, list: newFavoritesList });
     } else {
       const newFavoritesList = [...favorites.list, name];
 
       setFavorites({ ...favorites, list: newFavoritesList });
-      console.log(newFavoritesList);
     }
   };
 
@@ -90,7 +94,7 @@ const CoinContainer = () => {
 
   return (
     <div className={classes.container}>
-      <Header findCoin={findCoin} getCoins={fetchCoins} />
+      <Header findCoin={findCoin} getCoins={fetchCoins} activeTab={activeTab} findCurrency={findCurrency}/>
       {favorites.data.length > 0 ? (
         <Favorites data={favorites.data} toogleFavorite={toogleFavorite} />
       ) : null}
@@ -114,7 +118,7 @@ const CoinContainer = () => {
           ))}
         </div>
         <div className={activeTab === 1 ? isActive : classes.tab}>
-          <Currency addFavorits={toogleFavorite} count={activeCurrency} />
+          <Currency findData={curData} addFavorits={toogleFavorite} count={activeCurrency} />
         </div>
       </div>
       <button onClick={showMoreCoinsClick} className={classes.button} type="button">

@@ -5,11 +5,11 @@ import Logo from './images/logo.svg';
 import Autocomplite from '../Autocomplite';
 import classes from './Header.module.scss';
 
-const Header = ({ findCoin, getCoins }) => {
+const Header = ({ findCoin, getCoins, activeTab, findCurrency}) => {
   return (
     <header className={classes.header}>
       <img src={Logo} alt="logo icon" draggable="false" />
-      <Autocomplite findCoin={findCoin} getCoins={getCoins} />
+      <Autocomplite findCoin={findCoin} getCoins={getCoins} activeTab={activeTab} findCurrency={findCurrency} />
     </header>
   );
 };
