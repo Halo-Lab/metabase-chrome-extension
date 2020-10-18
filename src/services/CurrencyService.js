@@ -22,6 +22,7 @@ const CurrencyService = {
   },
   findCoin(name, callback) {
     const url = `${this.baseUrl}base=${this.base}&symbols=${name}`;
+    console.log(url)
     return this.fetch(url, callback)
   }
 };
