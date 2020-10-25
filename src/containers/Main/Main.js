@@ -74,7 +74,12 @@ const CoinContainer = () => {
     });
   }
 
-  const sortFavorites = () => {
+  const changeActiveTab = s => {
+    sortFavorites(s);
+    setActiveTab(s);
+  };
+
+  const sortFavorites = (s) => {
     let coinNames = [];
     let currencyNames = [];
 
@@ -82,9 +87,9 @@ const CoinContainer = () => {
       Object.keys(isoCodes).includes(i) ? currencyNames.push(i) : coinNames.push(i);
     }
 
-    activeTab
-    ? coinNames.length > 0 ? setCoinsToFavorite(coinNames) : setFavorites({ ...favorites, data: [] })
-    : currencyNames.length > 0 ? setCurrencyToFavorite(currencyNames) : setFavorites({ ...favorites, data: [] })
+    s
+    ? currencyNames.length > 0 ? setCurrencyToFavorite(currencyNames) : setFavorites({ ...favorites, data: [] })
+    : coinNames.length > 0 ? setCoinsToFavorite(coinNames) : setFavorites({ ...favorites, data: [] })
   };
 
   const toggleFavorite = name => {
@@ -113,9 +118,6 @@ const CoinContainer = () => {
     localStorage.setItem('favorites', favorites.list);
   }, [activeCoins, favorites.list]);
 
-  const changeActiveTab = s => {
-    setActiveTab(s);
-  };
 
   const isActive = classNames(classes.tab, classes.tab__active);
 
@@ -129,7 +131,6 @@ const CoinContainer = () => {
         data={activeTab}
         onChange={e => {
           changeActiveTab(e);
-          sortFavorites();
         }}
       />
       <TableHeader />

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import Checkbox from '../../Checkbox/Checkbox';
 import style from './FavoriteItem.module.scss';
-import PropTypes from 'prop-types';
+import PropTypes, { oneOfType } from 'prop-types';
 
 import { cutValueAfterPoint } from '../../../utils';
 
@@ -65,7 +65,10 @@ FavoriteItem.propTypes = {
   name: PropTypes.string,
   symbol: PropTypes.string,
   number: PropTypes.number,
-  priceUsd: PropTypes.string,
+  priceUsd: oneOfType([
+    PropTypes.string,
+    PropTypes.number
+  ]),
   changePercent24Hr: PropTypes.string,
   isFavorite: PropTypes.bool,
   toggleFavorite: PropTypes.func
