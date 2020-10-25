@@ -79,7 +79,7 @@ const CoinContainer = () => {
     setActiveTab(s);
   };
 
-  const sortFavorites = (s) => {
+  const sortFavorites = (index) => {
     let coinNames = [];
     let currencyNames = [];
 
@@ -87,9 +87,9 @@ const CoinContainer = () => {
       Object.keys(isoCodes).includes(i) ? currencyNames.push(i) : coinNames.push(i);
     }
 
-    s
-    ? currencyNames.length > 0 ? setCurrencyToFavorite(currencyNames) : setFavorites({ ...favorites, data: [] })
-    : coinNames.length > 0 ? setCoinsToFavorite(coinNames) : setFavorites({ ...favorites, data: [] })
+    index
+    ? currencyNames.length ? setCurrencyToFavorite(currencyNames) : setFavorites({ ...favorites, data: [] })
+    : coinNames.length ? setCoinsToFavorite(coinNames) : setFavorites({ ...favorites, data: [] })
   };
 
   const toggleFavorite = name => {
