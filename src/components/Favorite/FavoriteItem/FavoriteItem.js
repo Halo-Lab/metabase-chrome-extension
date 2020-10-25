@@ -13,7 +13,8 @@ const FavoriteItem = ({
   priceUsd,
   changePercent24Hr,
   isFavorite,
-  toogleFavorite
+  toggleFavorite,
+  currentSymbol = '$'
 }) => {
   const [price, setPrice] = useState(cutValueAfterPoint(priceUsd));
   const [priceState, setPriceState] = useState(null);
@@ -32,6 +33,7 @@ const FavoriteItem = ({
 
   const percent = cutValueAfterPoint(changePercent24Hr, 'percent');
   const percentClass = changePercent24Hr > 0 ? style.green : style.red;
+  const showPercent = isNaN(percent) ? '' : <span className={`${style.percent} ${percentClass}`}>{percent}%</span>;
   return (
     <div className={`swiper-slide ${style.item}`}>
       <div className={style.wrapper}>
@@ -40,17 +42,17 @@ const FavoriteItem = ({
         </span>
         <span className={style.id}>{symbol}</span>
       </div>
-      <div>
-        <span className={style.price}>$ {price}</span>
+      <div className={style.mainItem}>
+        <span className={style.price}>{currentSymbol} {price}</span>
         <span className={`${style.arrow} ${priceState}`}></span>
       </div>
       <div className={style.wrapper}>
-        <span className={`${style.percent} ${percentClass}`}>{percent}%</span>
+        {showPercent}
         <Checkbox
           addClass={style.checkbox}
           isChecked={isFavorite}
           click={() => {
-            toogleFavorite(id);
+            toggleFavorite(id);
           }}
         />
       </div>
@@ -66,7 +68,7 @@ FavoriteItem.propTypes = {
   priceUsd: PropTypes.string,
   changePercent24Hr: PropTypes.string,
   isFavorite: PropTypes.bool,
-  toogleFavorite: PropTypes.func
+  toggleFavorite: PropTypes.func
 };
 
 export default FavoriteItem;

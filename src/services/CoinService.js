@@ -8,7 +8,6 @@ const CoinService = {
   },
   findCoin(name, callback) {
     const url = `${this.baseUrl}assets/${name}`;
-    console.log(url)
     return this.fetch(url, callback);
   },
   findCoins(names, callback) {

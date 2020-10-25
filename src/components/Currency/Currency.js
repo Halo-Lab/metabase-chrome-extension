@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
-import CurrencyService from '../../services/CurrencyService';
+import CurrencyService from 'services/CurrencyService';
 import CurrencyCard from '../CurrencyCard';
 
-import VARIABLES from '../../variables';
+import VARIABLES from 'variables';
 
   const Currency = ({ count, addFavorits, findData}) => {
   const [data, setData] = useState(null);

@@ -6,7 +6,7 @@ import styles from './Favorite.module.scss';
 import Swiper from 'react-id-swiper';
 import 'swiper/swiper.scss';
 
-const Favorite = ({ data, toogleFavorite }) => {
+const Favorite = ({ data, toggleFavorite }) => {
   const params = {
     slidesPerView: 'auto',
     spaceBetween: 16
@@ -17,7 +17,7 @@ const Favorite = ({ data, toogleFavorite }) => {
       <Swiper {...params} shouldSwiperUpdate>
         {data.map((item, index) => {
           return (
-            <Item {...item} key={item.id} number={index + 1} toogleFavorite={toogleFavorite} />
+            <Item {...item} key={item.id} number={index + 1} toggleFavorite={toggleFavorite} />
           );
         })}
       </Swiper>
@@ -27,12 +27,12 @@ const Favorite = ({ data, toogleFavorite }) => {
 
 Favorite.defaultProps = {
   data: [],
-  toogleFavorite: () => {}
+  toggleFavorite: () => {}
 };
 
 Favorite.propTypes = {
   data: PropTypes.array,
-  toogleFavorite: PropTypes.func
+  toggleFavorite: PropTypes.func
 };
 
 export default Favorite;

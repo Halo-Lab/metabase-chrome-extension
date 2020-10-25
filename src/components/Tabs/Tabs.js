@@ -5,12 +5,12 @@ import classes from './Tabs.module.scss';
 import { ReactComponent as CurrencyImage } from './images/currency.svg';
 import { ReactComponent as CryptoImage } from './images/bitcoin.svg';
 
-const Tabs = props => {
+const Tabs = ({ onChange }) => {
   const [activeIndex, setActiveIndex] = useState(0);
 
   const handleOnClick = index => {
     setActiveIndex(index);
-    props.onchange(index);
+    onChange(index);
   };
 
   const isActive = classNames(classes.tab__btn, classes.tab__active);

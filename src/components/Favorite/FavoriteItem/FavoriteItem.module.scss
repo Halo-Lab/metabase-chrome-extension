@@ -1,9 +1,8 @@
-@import '../../../style/variables.scss';
+@import 'style/variables.scss';
 
 .item {
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
   padding: 16px;
   box-shadow: 0px 4px 25px rgba(0, 0, 0, 0.05);
   border-radius: 15px;
@@ -36,6 +35,10 @@
   line-height: 21px;
 }
 
+.mainItem {
+  padding: 15px 0;
+}
+
 .percent {
   font-weight: 500;
   font-size: 14px;
@@ -51,8 +54,8 @@
 }
 
 .checkbox {
-  position: relative;
-  left: 0;
+  position: absolute;
+  left: 95%;
 }
 
 .arrow {
